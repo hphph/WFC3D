@@ -12,7 +12,7 @@ public class DummyModule : MonoBehaviour
     [System.Serializable]
     public class VerticalConnector: AbstractConnector
     {
-        public enum RotationState { A, B, C, D }
+        public enum RotationState { A, B, C, D, Invariant }
         public RotationState rotation;
 
         public override string ToString()
@@ -31,6 +31,9 @@ public class DummyModule : MonoBehaviour
                     break;
                 case RotationState.D:
                     result += "D";
+                    break;
+                case RotationState.Invariant:
+                    result += "I";
                     break;
             }
             return result;
