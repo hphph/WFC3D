@@ -12,7 +12,10 @@ public class DummyModule : MonoBehaviour
     [System.Serializable]
     public class VerticalConnector: AbstractConnector
     {
-        public enum RotationState { A, B, C, D, Invariant }
+        public enum RotationState 
+        { 
+            A, B, C, D, Invariant 
+        }
         public RotationState rotation;
 
         public override string ToString()
@@ -64,9 +67,16 @@ public class DummyModule : MonoBehaviour
     {
         get 
         {
-            return new AbstractConnector[] {Up, Forward, Right, Back, Left, Down};
+            return new AbstractConnector[] {Left, Forward, Up, Right, Back, Down};
         }
     }
+
+    public AbstractConnector OppositeConnector(int connectorIndex)
+    {
+        if(connectorIndex > 6) throw new System.Exception("Connector index out of bounds");
+        else return ModuleConnectors[WFCTools.OppositeConnectorIndex(connectorIndex)];
+    }
+
 
     public float Probability;
 
