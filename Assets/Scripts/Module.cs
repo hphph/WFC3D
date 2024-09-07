@@ -1,22 +1,25 @@
+using System;
 using UnityEngine;
 
 public class Module
 {
     DummyModule dummy;
     GameObject prefab;
-    Quaternion rotation;
+    int rotation;
     int modulesFromDummy;
 
     public DummyModule Dummy => dummy;
     public GameObject Prefab => prefab;
-    public Quaternion Rotation => rotation;
+    public int Rotation => rotation;
     public float Probability => dummy.Probability/modulesFromDummy;
     
-    public Module(GameObject dummyPrefab, Quaternion rotation, int modulesFromDummy)
+    public Module(GameObject dummyPrefab, int rotation, int modulesFromDummy)
     {
         dummy = dummyPrefab.GetComponent<DummyModule>();
         if(dummy == null) Debug.LogError("Missing DummyModule component in prefab");
+        prefab = dummyPrefab;
         this.rotation = rotation;
+        if(rotation > 3) Debug.LogError("Wrong rotation value");
         this.modulesFromDummy = modulesFromDummy;
     }
 
@@ -24,8 +27,8 @@ public class Module
     {
         if(WFCTools.IsConnectorHorizontal(connectorIndexToNeighbour))
         {
-            var connector1 = neighbour.Dummy.OppositeConnector(connectorIndexToNeighbour) as DummyModule.HorizontalConnector;
-            var connector2 = dummy.ModuleConnectors[connectorIndexToNeighbour] as DummyModule.HorizontalConnector;
+            var connector1 = neighbour.Dummy.OppositeConnector(RotateHorizontallyConnector(connectorIndexToNeighbour, neighbour.Rotation)) as DummyModule.HorizontalConnector;
+            var connector2 = dummy.ModuleConnectors[RotateHorizontallyConnector(connectorIndexToNeighbour, rotation)] as DummyModule.HorizontalConnector;
             return (connector1.ConnectionId == connector2.ConnectionId) && (connector1.Symmetric || connector2.Symmetric || ((connector1.Filpped || connector2.Filpped) && !(connector1.Filpped && connector2.Filpped)));
         }
         else
@@ -36,14 +39,24 @@ public class Module
         }
     }
 
+    public int[] HorizontalIndexes()
+    {
+        return new int[]{0, 1, 3, 4};
+    }
+
+    public int RotateHorizontallyConnector(int connectorIndex, int rotation)
+    {
+        return HorizontalIndexes()[(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) + rotation) % 4];
+    }
+
     public static Module[] GenerateModulesFromDummy(GameObject dummyPrefab)
     {
         //TODO: make less modules based on dummy connections 
         Module[] generatedModules = new Module[4];
-        for(int i = 0; i < 4; i++)
-        {
-            generatedModules[i] = new Module(dummyPrefab, Quaternion.Euler(0, 90 * i, 0), 4);
-        }
+        generatedModules[0] = new Module(dummyPrefab, 0, 4);
+        generatedModules[1] = new Module(dummyPrefab, 1, 4);
+        generatedModules[2] = new Module(dummyPrefab, 2, 4);
+        generatedModules[3] = new Module(dummyPrefab, 3, 4);
 
         return generatedModules;
     }

@@ -12,6 +12,7 @@ public class FiniteMap: MonoBehaviour
 
     void Start()
     {
+        entropySortedSlotQueue = new PriorityQueueSet<Slot>();
         mapData = new Slot[size.x, size.y, size.z];
         generatedMapModules = new List<Module>();
         mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
@@ -49,15 +50,22 @@ public class FiniteMap: MonoBehaviour
     {
         foreach(KeyValuePair<WFCTools.DirectionIndex, Vector3Int> neighbourPos in WFCTools.NeighboursToSlot(collapsedSlot.Position))
         {
+            if(neighbourPos.Value.x >= size.x || neighbourPos.Value.y >= size.y || neighbourPos.Value.z >= size.z || neighbourPos.Value.x < 0 || neighbourPos.Value.y < 0 || neighbourPos.Value.z < 0) continue;
+            Debug.Log(neighbourPos.Value);
             Slot neighbour = mapData[neighbourPos.Value.x, neighbourPos.Value.y, neighbourPos.Value.z];
+            if(neighbour.IsCollapsed) continue;
             neighbour.Spread(collapsedSlot.CollapsedModule, neighbourPos.Key);
+            entropySortedSlotQueue.Add(neighbour, neighbour.Entropy());
         }
     }
     
-    public void CollapseLowestEntropySlot()
+    public bool CollapseLowestEntropySlotAndPropagateChange()
     {
+        if(entropySortedSlotQueue.Count == 0) return false;
         Slot lowestEntropySlot = entropySortedSlotQueue.ExtractMin();
         lowestEntropySlot.Collapse();
-        
+        Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0));
+        PropagateSlotCollapse(lowestEntropySlot);
+        return true;
     }
 }
