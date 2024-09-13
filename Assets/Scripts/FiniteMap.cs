@@ -48,13 +48,20 @@ public class FiniteMap: MonoBehaviour
     //TODO: Add queue of propagation
     public void PropagateSlotCollapse(Slot collapsedSlot)
     {
-        foreach(KeyValuePair<WFCTools.DirectionIndex, Vector3Int> neighbourPos in WFCTools.NeighboursToSlot(collapsedSlot.Position))
+        Queue<KeyValuePair<WFCTools.DirectionIndex, Vector3Int>> updateQueue = new Queue<KeyValuePair<WFCTools.DirectionIndex, Vector3Int>>(WFCTools.NeighboursToSlot(collapsedSlot.Position));
+        while(updateQueue.Count > 0)
         {
+            var neighbourPos = updateQueue.Dequeue();
             if(neighbourPos.Value.x >= size.x || neighbourPos.Value.y >= size.y || neighbourPos.Value.z >= size.z || neighbourPos.Value.x < 0 || neighbourPos.Value.y < 0 || neighbourPos.Value.z < 0) continue;
-            Debug.Log(neighbourPos.Value);
             Slot neighbour = mapData[neighbourPos.Value.x, neighbourPos.Value.y, neighbourPos.Value.z];
             if(neighbour.IsCollapsed) continue;
-            neighbour.Spread(collapsedSlot.CollapsedModule, neighbourPos.Key);
+            if(neighbour.Spread(collapsedSlot.CollapsedModule, neighbourPos.Key))
+            {
+                foreach(var n in WFCTools.NeighboursToSlot(neighbourPos.Value))
+                {
+                    updateQueue.Enqueue(n);
+                }
+            }
             entropySortedSlotQueue.Add(neighbour, neighbour.Entropy());
         }
     }
@@ -64,8 +71,11 @@ public class FiniteMap: MonoBehaviour
         if(entropySortedSlotQueue.Count == 0) return false;
         Slot lowestEntropySlot = entropySortedSlotQueue.ExtractMin();
         lowestEntropySlot.Collapse();
-        Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0));
-        PropagateSlotCollapse(lowestEntropySlot);
+        if(lowestEntropySlot.IsCollapsed)
+        {
+            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0));
+            PropagateSlotCollapse(lowestEntropySlot);
+        }
         return true;
     }
 }

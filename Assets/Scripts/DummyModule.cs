@@ -82,11 +82,11 @@ public class DummyModule : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Handles.Label(transform.position + Vector3.up, Up.ToString());
-        Handles.Label(transform.position + Vector3.forward, Forward.ToString());
-        Handles.Label(transform.position + Vector3.right, Right.ToString());
-        Handles.Label(transform.position + Vector3.back, Back.ToString());
-        Handles.Label(transform.position + Vector3.left, Left.ToString());
-        Handles.Label(transform.position + Vector3.down, Down.ToString());
+        Handles.Label(transform.position + transform.up, Up.ToString());
+        Handles.Label(transform.position + transform.forward, Forward.ToString());
+        Handles.Label(transform.position + transform.right, Right.ToString());
+        Handles.Label(transform.position + -transform.forward, Back.ToString());
+        Handles.Label(transform.position + -transform.right, Left.ToString());
+        Handles.Label(transform.position + -transform.up, Down.ToString());
     }
 }

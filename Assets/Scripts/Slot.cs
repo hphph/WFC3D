@@ -50,6 +50,7 @@ public class Slot
 
 	public void Collapse()
 	{
+		if(possibilities.Count == 0) Debug.Log("No Possibilities to collapse");
 		float collapseNumber = Random.Range(0, Entropy());
 		float sum = 0;
 		foreach(Module p in possibilities)
