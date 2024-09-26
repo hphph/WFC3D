@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class DummyModule : MonoBehaviour
 {
@@ -77,16 +78,34 @@ public class DummyModule : MonoBehaviour
         else return ModuleConnectors[WFCTools.OppositeConnectorIndex(connectorIndex)];
     }
 
+    void PrintDirectionLabels(Color textColor)
+    {
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = textColor;
+        Handles.Label(transform.position + transform.up, Up.ToString(), style);
+        Handles.Label(transform.position + transform.forward, Forward.ToString(), style);
+        Handles.Label(transform.position + transform.right, Right.ToString(), style);
+        Handles.Label(transform.position + -transform.forward, Back.ToString(), style);
+        Handles.Label(transform.position + -transform.right, Left.ToString(), style);
+        Handles.Label(transform.position + -transform.up, Down.ToString(), style);
+    }
+
 
     public float Probability;
 
+    void OnDrawGizmosSelected()
+    {
+        if(PrefabStageUtility.GetCurrentPrefabStage() == null)
+        {
+            PrintDirectionLabels(Color.black);
+        }
+    }
+
     void OnDrawGizmos()
     {
-        Handles.Label(transform.position + transform.up, Up.ToString());
-        Handles.Label(transform.position + transform.forward, Forward.ToString());
-        Handles.Label(transform.position + transform.right, Right.ToString());
-        Handles.Label(transform.position + -transform.forward, Back.ToString());
-        Handles.Label(transform.position + -transform.right, Left.ToString());
-        Handles.Label(transform.position + -transform.up, Down.ToString());
+        if(PrefabStageUtility.GetCurrentPrefabStage() != null)
+        {
+            PrintDirectionLabels(Color.white);
+        }
     }
 }

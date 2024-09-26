@@ -33,18 +33,34 @@ public class Slot
 	/// Removes possibilities that not align with given neighbour.
 	/// Retruns true if number of possibilities have dropped.
 	/// </summary>
-    public bool Spread(Module neighbouringModule, WFCTools.DirectionIndex connectorIndexToNeighbour)
+    public bool Spread(Slot neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
 	{
-		List<Module> newPossibilities = new List<Module>();
-		for(int i = 0; i < possibilities.Count(); i++)
+		HashSet<Module> newPossibilities = new HashSet<Module>();
+		if(neighbour.IsCollapsed)
 		{
-			if(possibilities[i].IsFitting(neighbouringModule, (int)connectorIndexToNeighbour))
+			for(int i = 0; i < possibilities.Count(); i++)
 			{
-				newPossibilities.Add(possibilities[i]);
+				if(possibilities[i].IsFitting(neighbour.CollapsedModule, (int)connectorIndexToNeighbour))
+				{
+					newPossibilities.Add(possibilities[i]);
+				}
+			}
+		}
+		else
+		{
+			foreach(var np in neighbour.possibilities)
+			{
+				for(int i = 0; i < possibilities.Count(); i++)
+				{
+					if(possibilities[i].IsFitting(np, (int)connectorIndexToNeighbour))
+					{
+						newPossibilities.Add(possibilities[i]);
+					}
+				}
 			}
 		}
 		bool hasChanged = possibilities.Count() != newPossibilities.Count();
-		possibilities = newPossibilities;
+		possibilities = newPossibilities.ToList();
 		return hasChanged;
 	}
 
@@ -63,6 +79,16 @@ public class Slot
 			}
 		}
 		//Rand get one element from possibilities
+	}
+
+	public void LogPossibilities()
+	{
+		Debug.Log("Slot " + position + ", collapsed: " + IsCollapsed + " Possibilities:");
+		foreach(var p in possibilities)
+		{
+			Debug.Log(p.Prefab.name + " rotation " + p.Rotation);
+		}
+		
 	}
 
 }

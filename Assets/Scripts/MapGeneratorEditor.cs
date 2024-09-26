@@ -14,5 +14,13 @@ public class MapGeneratorEditor : Editor
         {
             generator.GenerateMap();
         }
+        if(GUILayout.Button("Collapse next slot"))
+        {
+            generator.CollapseNextSlot();
+        }
+        if(GUILayout.Button("Clear map"))
+        {
+            generator.Clear();
+        }
     }
 }

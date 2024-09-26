@@ -10,18 +10,17 @@ public class WFCTools
 
     /// <summary>
     /// </summary>
-    /// <param name="slotPosition"></param>
     /// <returns>Dictionary of direction, vector pairs for every neighbour to a slot. Direction points at parent slot.</returns>
-    public static Dictionary<DirectionIndex, Vector3Int> NeighboursToSlot(Vector3Int slotPosition)
+    public static (DirectionIndex, Vector3Int, Slot)[] NeighboursToSlot(Slot slot)
     {
-        Dictionary<DirectionIndex, Vector3Int> neighbours = new Dictionary<DirectionIndex, Vector3Int>
+        (DirectionIndex, Vector3Int, Slot)[] neighbours = new (DirectionIndex, Vector3Int, Slot)[]
         {
-            { DirectionIndex.Left, new Vector3Int(slotPosition.x + 1, slotPosition.y, slotPosition.z) },
-            { DirectionIndex.Down, new Vector3Int(slotPosition.x, slotPosition.y + 1, slotPosition.z) },
-            { DirectionIndex.Back, new Vector3Int(slotPosition.x, slotPosition.y, slotPosition.z + 1) },
-            { DirectionIndex.Right, new Vector3Int(slotPosition.x - 1, slotPosition.y, slotPosition.z) },
-            { DirectionIndex.Up, new Vector3Int(slotPosition.x, slotPosition.y - 1, slotPosition.z) },
-            { DirectionIndex.Forward, new Vector3Int(slotPosition.x, slotPosition.y, slotPosition.z - 1) }
+            ( DirectionIndex.Left, new Vector3Int(slot.Position.x + 1, slot.Position.y, slot.Position.z), slot ),
+            ( DirectionIndex.Forward, new Vector3Int(slot.Position.x, slot.Position.y, slot.Position.z - 1), slot ),
+            ( DirectionIndex.Up, new Vector3Int(slot.Position.x, slot.Position.y - 1, slot.Position.z), slot ),
+            ( DirectionIndex.Right, new Vector3Int(slot.Position.x - 1, slot.Position.y, slot.Position.z), slot ),
+            ( DirectionIndex.Back, new Vector3Int(slot.Position.x, slot.Position.y, slot.Position.z + 1), slot ),
+            ( DirectionIndex.Down, new Vector3Int(slot.Position.x, slot.Position.y + 1, slot.Position.z), slot ),
         };
         
         return neighbours;

@@ -27,26 +27,34 @@ public class Module
     {
         if(WFCTools.IsConnectorHorizontal(connectorIndexToNeighbour))
         {
-            var connector1 = neighbour.Dummy.OppositeConnector(RotateHorizontallyConnector(connectorIndexToNeighbour, neighbour.Rotation)) as DummyModule.HorizontalConnector;
+            var connector1 = neighbour.dummy.ModuleConnectors[RotateHorizontallyConnector(WFCTools.OppositeConnectorIndex(connectorIndexToNeighbour), neighbour.Rotation)] as DummyModule.HorizontalConnector;
             var connector2 = dummy.ModuleConnectors[RotateHorizontallyConnector(connectorIndexToNeighbour, rotation)] as DummyModule.HorizontalConnector;
-            return (connector1.ConnectionId == connector2.ConnectionId) && (connector1.Symmetric || connector2.Symmetric || ((connector1.Filpped || connector2.Filpped) && !(connector1.Filpped && connector2.Filpped)));
+            return (connector1.ConnectionId == connector2.ConnectionId) && 
+                (connector1.Symmetric || connector2.Symmetric || (!connector1.Filpped == connector2.Filpped));
         }
         else
         {
             var connector1 = neighbour.Dummy.OppositeConnector(connectorIndexToNeighbour) as DummyModule.VerticalConnector;
             var connector2 = dummy.ModuleConnectors[connectorIndexToNeighbour] as DummyModule.VerticalConnector;
-            return (connector1.ConnectionId == connector2.ConnectionId) && (connector1.rotation == DummyModule.VerticalConnector.RotationState.Invariant || connector2.rotation == DummyModule.VerticalConnector.RotationState.Invariant || connector1.rotation == connector2.rotation);
+            return (connector1.ConnectionId == connector2.ConnectionId) && 
+                (connector1.rotation == DummyModule.VerticalConnector.RotationState.Invariant || connector2.rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
+                    connector1.rotation == connector2.rotation);
         }
     }
 
-    public int[] HorizontalIndexes()
+    static public int[] HorizontalIndexes()
     {
         return new int[]{0, 1, 3, 4};
     }
 
-    public int RotateHorizontallyConnector(int connectorIndex, int rotation)
+    static public int RotateHorizontallyConnector(int connectorIndex, int rotation)
     {
-        return HorizontalIndexes()[(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) + rotation) % 4];
+        return HorizontalIndexes()[mod(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
+    }
+
+    public static int mod(int x, int m) 
+    {
+        return (x%m + m)%m;
     }
 
     public static Module[] GenerateModulesFromDummy(GameObject dummyPrefab)
