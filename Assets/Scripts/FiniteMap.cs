@@ -7,14 +7,18 @@ public class FiniteMap: MonoBehaviour
     [SerializeField] Vector3Int size;
     [SerializeField] GameObject dummyModulesPrefab;
     [SerializeField] List<GameObject> mapDummyModulePrefabs;
+    [SerializeField] GameObject DebugSlotPrefab;
     List<Module> generatedMapModules;
     Slot[,,] mapData;
+    GameObject[,,] debugSlots;
     PriorityQueueSet<Slot> entropySortedSlotQueue;
+    
 
     void Start()
     {
         entropySortedSlotQueue = new PriorityQueueSet<Slot>();
         mapData = new Slot[size.x, size.y, size.z];
+        debugSlots = new GameObject[size.x, size.y, size.z];
         generatedMapModules = new List<Module>();
         mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
         foreach(Transform child in dummyModulesPrefab.transform)
@@ -34,6 +38,8 @@ public class FiniteMap: MonoBehaviour
         for(int k = 0; k < size.x; k++)
         {
             mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
+            debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
         }
@@ -75,7 +81,7 @@ public class FiniteMap: MonoBehaviour
         lowestEntropySlot.Collapse();
         if(lowestEntropySlot.IsCollapsed)
         {
-            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0), transform);
+            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0), debugSlots[lowestEntropySlot.Position.x, lowestEntropySlot.Position.y, lowestEntropySlot.Position.z].transform);
             PropagateSlotCollapse(lowestEntropySlot);
         }
         return true;
@@ -85,6 +91,7 @@ public class FiniteMap: MonoBehaviour
     {
         entropySortedSlotQueue = new PriorityQueueSet<Slot>();
         mapData = new Slot[size.x, size.y, size.z];
+        debugSlots = new GameObject[size.x, size.y, size.z];
         foreach(Transform child in transform)
         {
             Destroy(child.gameObject);
@@ -98,6 +105,8 @@ public class FiniteMap: MonoBehaviour
         for(int k = 0; k < size.x; k++)
         {
             mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
+            debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
         }

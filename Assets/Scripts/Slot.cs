@@ -13,6 +13,7 @@ public class Slot
     public bool IsCollapsed => collapsedModule != null;
     public Module CollapsedModule => collapsedModule;
 	public Vector3Int Position => position;
+	public List<Module> Possibilities => possibilities;
 
 	public float Entropy() 
 	{
@@ -38,6 +39,7 @@ public class Slot
 		HashSet<Module> newPossibilities = new HashSet<Module>();
 		if(neighbour.IsCollapsed)
 		{
+			ReduceExcludedPossibilities(neighbour, connectorIndexToNeighbour);
 			for(int i = 0; i < possibilities.Count(); i++)
 			{
 				if(possibilities[i].IsFitting(neighbour.CollapsedModule, (int)connectorIndexToNeighbour))
@@ -64,6 +66,22 @@ public class Slot
 		return hasChanged;
 	}
 
+	public void ReduceExcludedPossibilities(Slot neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
+	{
+		if(!neighbour.IsCollapsed) return;
+		int removed;
+		foreach(var p in possibilities.FindAll(possibility => neighbour.CollapsedModule.IsModuleExcluded(possibility, connectorIndexToNeighbour)))
+		{
+			Debug.Log("Removed " + p.Prefab.name + " Rotation " + p.Rotation);
+		}
+		removed = possibilities.RemoveAll(possibility => neighbour.CollapsedModule.IsModuleExcluded(possibility, connectorIndexToNeighbour));		
+		if(removed > 0)
+		{
+			Debug.Log("Reduction took place at " + Position);
+		}
+			
+	}
+
 	public void Collapse()
 	{
 		if(possibilities.Count == 0) Debug.Log("No Possibilities to collapse");
@@ -78,17 +96,6 @@ public class Slot
 				break;
 			}
 		}
-		//Rand get one element from possibilities
-	}
-
-	public void LogPossibilities()
-	{
-		Debug.Log("Slot " + position + ", collapsed: " + IsCollapsed + " Possibilities:");
-		foreach(var p in possibilities)
-		{
-			Debug.Log(p.Prefab.name + " rotation " + p.Rotation);
-		}
-		
 	}
 
 }

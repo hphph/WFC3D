@@ -38,8 +38,35 @@ public class Module
             var connector2 = dummy.ModuleConnectors[connectorIndexToNeighbour] as DummyModule.VerticalConnector;
             return (connector1.ConnectionId == connector2.ConnectionId) && 
                 (connector1.rotation == DummyModule.VerticalConnector.RotationState.Invariant || connector2.rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
-                    connector1.rotation == connector2.rotation);
+                    (((int)connector1.rotation + neighbour.Rotation) % 4) == (((int)connector2.rotation + rotation) % 4));
         }
+    }
+
+    public bool IsModuleExcluded(Module moduleToCheck, WFCTools.DirectionIndex connectorIndexOppositeToModuleToCheck)
+    {
+        if(WFCTools.IsConnectorHorizontal((int)connectorIndexOppositeToModuleToCheck))
+        {
+            var connector = dummy.ModuleConnectors[RotateHorizontallyConnector(WFCTools.OppositeConnectorIndex((int)connectorIndexOppositeToModuleToCheck), rotation)];
+            foreach(DummyModule excluded in connector.ExcludedDummyModules)
+            {
+                if(excluded.GetComponent<MeshFilter>().sharedMesh == moduleToCheck.Dummy.GetComponent<MeshFilter>().sharedMesh)
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            var connector = dummy.ModuleConnectors[WFCTools.OppositeConnectorIndex((int)connectorIndexOppositeToModuleToCheck)];
+            foreach(DummyModule excluded in connector.ExcludedDummyModules)
+            {
+                if(excluded.GetComponent<MeshFilter>().sharedMesh == moduleToCheck.Dummy.GetComponent<MeshFilter>().sharedMesh)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     static public int[] HorizontalIndexes()

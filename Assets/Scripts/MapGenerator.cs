@@ -25,10 +25,6 @@ public class MapGenerator : MonoBehaviour
 
     public void CollapseNextSlot()
     {
-        for(int i = 0; i < 4; i++)
-        {
-            Debug.Log(Module.RotateHorizontallyConnector(0, i));
-        }
         Debug.Log("Has collapsed: " + map.CollapseLowestEntropySlotAndPropagateChange());
     }
 }

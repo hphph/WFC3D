@@ -8,6 +8,7 @@ public class DummyModule : MonoBehaviour
     public abstract class AbstractConnector
     {
         public int ConnectionId;
+        public DummyModule[] ExcludedDummyModules;
     }
 
     [System.Serializable]
