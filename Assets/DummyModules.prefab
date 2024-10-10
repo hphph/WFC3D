@@ -734,10 +734,10 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Forward:
-    ConnectionId: 4
+    ConnectionId: 9
     ExcludedDummyModules:
     - {fileID: 251040864898087138}
-    Symmetric: 1
+    Symmetric: 0
     Filpped: 0
   Right:
     ConnectionId: 5
@@ -745,11 +745,11 @@ MonoBehaviour:
     Symmetric: 1
     Filpped: 0
   Back:
-    ConnectionId: 4
+    ConnectionId: 9
     ExcludedDummyModules:
     - {fileID: 251040864898087138}
-    Symmetric: 1
-    Filpped: 0
+    Symmetric: 0
+    Filpped: 1
   Left:
     ConnectionId: 1
     ExcludedDummyModules:
@@ -1506,6 +1506,8 @@ MonoBehaviour:
     ConnectionId: 0
     ExcludedDummyModules:
     - {fileID: 587375166832611871}
+    - {fileID: 4232885829579289381}
+    - {fileID: 7234318767697840771}
     Symmetric: 1
     Filpped: 0
   Down:
@@ -1928,12 +1930,16 @@ MonoBehaviour:
     ConnectionId: 0
     ExcludedDummyModules:
     - {fileID: 587375166832611871}
+    - {fileID: 4232885829579289381}
+    - {fileID: 7234318767697840771}
     Symmetric: 1
     Filpped: 0
   Left:
     ConnectionId: 0
     ExcludedDummyModules:
     - {fileID: 587375166832611871}
+    - {fileID: 4232885829579289381}
+    - {fileID: 7234318767697840771}
     Symmetric: 1
     Filpped: 0
   Down:
@@ -2189,6 +2195,8 @@ MonoBehaviour:
     ConnectionId: 0
     ExcludedDummyModules:
     - {fileID: 7234318767697840771}
+    - {fileID: 587375166832611871}
+    - {fileID: 4232885829579289381}
     Symmetric: 1
     Filpped: 0
   Down:
