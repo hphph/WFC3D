@@ -70,16 +70,7 @@ public class Slot
 	{
 		if(!neighbour.IsCollapsed) return;
 		int removed;
-		foreach(var p in possibilities.FindAll(possibility => neighbour.CollapsedModule.IsModuleExcluded(possibility, connectorIndexToNeighbour)))
-		{
-			Debug.Log("Removed " + p.Prefab.name + " Rotation " + p.Rotation);
-		}
 		removed = possibilities.RemoveAll(possibility => neighbour.CollapsedModule.IsModuleExcluded(possibility, connectorIndexToNeighbour));		
-		if(removed > 0)
-		{
-			Debug.Log("Reduction took place at " + Position);
-		}
-			
 	}
 
 	public void Collapse()

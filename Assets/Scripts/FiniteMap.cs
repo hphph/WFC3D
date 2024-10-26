@@ -52,7 +52,6 @@ public class FiniteMap: MonoBehaviour
         return mapData[x, y, z];
     }
 
-    //TODO: Add queue of propagation
     public void PropagateSlotCollapse(Slot collapsedSlot)
     {
         Queue<(WFCTools.DirectionIndex, Vector3Int, Slot)> updateQueue = new Queue<(WFCTools.DirectionIndex, Vector3Int, Slot)>(WFCTools.NeighboursToSlot(collapsedSlot));
@@ -78,6 +77,11 @@ public class FiniteMap: MonoBehaviour
     {
         if(entropySortedSlotQueue.Count == 0) return false;
         Slot lowestEntropySlot = entropySortedSlotQueue.ExtractMin();
+        if(lowestEntropySlot.Possibilities.Count == 0) 
+        {
+            Clear();
+            return true;
+        }
         lowestEntropySlot.Collapse();
         if(lowestEntropySlot.IsCollapsed)
         {

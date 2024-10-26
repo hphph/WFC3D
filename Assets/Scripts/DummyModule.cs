@@ -73,6 +73,22 @@ public class DummyModule : MonoBehaviour
         }
     }
 
+    public HorizontalConnector[] HorizontalConnectors
+    {
+        get
+        {
+            return new HorizontalConnector[] {Left, Forward, Right, Back};
+        }
+    }
+
+    public VerticalConnector[] VerticalConnectors
+    {
+        get
+        {
+            return new VerticalConnector[] {Up, Down};
+        }
+    }
+
     public AbstractConnector OppositeConnector(int connectorIndex)
     {
         if(connectorIndex > 6) throw new System.Exception("Connector index out of bounds");

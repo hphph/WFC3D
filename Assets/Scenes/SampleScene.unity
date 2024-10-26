@@ -406,8 +406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdffbedab1e9f354494594b3e131a7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 7, y: 5, z: 7}
-  dummyModulesPrefab: {fileID: 6812164213132806872, guid: ab0303b98e3255043b9c3001bb8762f6,
+  size: {x: 10, y: 4, z: 10}
+  dummyModulesPrefab: {fileID: 6812164213132806872, guid: 5a781ff9ba49c0948a4e99749fa6ca76,
     type: 3}
   mapDummyModulePrefabs: []
   DebugSlotPrefab: {fileID: 3493290215341917222, guid: 721978b173467724f85454a3a99d7067,
