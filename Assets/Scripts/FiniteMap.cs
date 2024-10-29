@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class FiniteMap: MonoBehaviour
 {
     [SerializeField] Vector3Int size;
+    [SerializeField] Vector3 moduleSize;
     [SerializeField] GameObject dummyModulesPrefab;
-    [SerializeField] List<GameObject> mapDummyModulePrefabs;
     [SerializeField] GameObject DebugSlotPrefab;
+    List<GameObject> mapDummyModulePrefabs;
     List<Module> generatedMapModules;
     Slot[,,] mapData;
     GameObject[,,] debugSlots;
@@ -85,7 +87,7 @@ public class FiniteMap: MonoBehaviour
         lowestEntropySlot.Collapse();
         if(lowestEntropySlot.IsCollapsed)
         {
-            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, lowestEntropySlot.Position*2, Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0), debugSlots[lowestEntropySlot.Position.x, lowestEntropySlot.Position.y, lowestEntropySlot.Position.z].transform);
+            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, new Vector3(lowestEntropySlot.Position.x * moduleSize.x, lowestEntropySlot.Position.y * moduleSize.y, lowestEntropySlot.Position.z * moduleSize.z), Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0), debugSlots[lowestEntropySlot.Position.x, lowestEntropySlot.Position.y, lowestEntropySlot.Position.z].transform);
             PropagateSlotCollapse(lowestEntropySlot);
         }
         return true;
@@ -109,7 +111,7 @@ public class FiniteMap: MonoBehaviour
         for(int k = 0; k < size.x; k++)
         {
             mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
-            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
+            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3(k*moduleSize.x,j*moduleSize.y,i*moduleSize.z), Quaternion.identity, transform);
             debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
