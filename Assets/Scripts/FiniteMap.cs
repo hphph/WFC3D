@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class FiniteMap: MonoBehaviour
@@ -9,6 +7,7 @@ public class FiniteMap: MonoBehaviour
     [SerializeField] Vector3 moduleSize;
     [SerializeField] GameObject dummyModulesPrefab;
     [SerializeField] GameObject DebugSlotPrefab;
+    [SerializeField] bool hasBase;
     List<GameObject> mapDummyModulePrefabs;
     List<Module> generatedMapModules;
     Slot[,,] mapData;

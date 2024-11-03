@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEditor;
-using Unity.VisualScripting;
 
 public class MapGenerator : MonoBehaviour
 {
