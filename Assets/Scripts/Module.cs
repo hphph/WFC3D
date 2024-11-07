@@ -8,11 +8,13 @@ public class Module
     GameObject prefab;
     int rotation;
     int modulesFromDummy;
+    string[] tags;
 
     public DummyModule Dummy => dummy;
     public GameObject Prefab => prefab;
     public int Rotation => rotation;
     public float Probability => dummy.Probability/modulesFromDummy;
+    public string[] Tags => tags;
     
     public Module(GameObject dummyPrefab, int rotation, int modulesFromDummy)
     {
@@ -22,6 +24,7 @@ public class Module
         this.rotation = rotation;
         if(rotation > 3) Debug.LogError("Wrong rotation value");
         this.modulesFromDummy = modulesFromDummy;
+        tags = dummy.tags;
     }
 
     public bool IsFitting(Module neighbour, int connectorIndexToNeighbour)

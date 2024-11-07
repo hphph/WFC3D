@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FiniteMap: MonoBehaviour
@@ -7,16 +8,25 @@ public class FiniteMap: MonoBehaviour
     [SerializeField] Vector3 moduleSize;
     [SerializeField] GameObject dummyModulesPrefab;
     [SerializeField] GameObject DebugSlotPrefab;
-    [SerializeField] bool hasBase;
+    [SerializeField] MapBase[] mapBases;
     List<GameObject> mapDummyModulePrefabs;
     List<Module> generatedMapModules;
     Slot[,,] mapData;
     GameObject[,,] debugSlots;
     PriorityQueueSet<Slot> entropySortedSlotQueue;
+    Dictionary<string, IEnumerable<Module>> tagModuleCache;
     
 
-    void Start()
+    void Awake()
     {
+        foreach(MapBase mapBase in mapBases)
+        {
+            Vector3Int topRightPoint = mapBase.TopRightBasePoint();
+            size.x = topRightPoint.x > size.x ? topRightPoint.x : size.x; 
+            size.y = topRightPoint.y > size.y ? topRightPoint.y : size.y; 
+            size.z = topRightPoint.z > size.z ? topRightPoint.z : size.z; 
+        }
+        
         entropySortedSlotQueue = new PriorityQueueSet<Slot>();
         mapData = new Slot[size.x, size.y, size.z];
         debugSlots = new GameObject[size.x, size.y, size.z];
@@ -30,6 +40,7 @@ public class FiniteMap: MonoBehaviour
         {
             generatedMapModules.AddRange(Module.GenerateModulesFromDummy(prefab));
         }
+        tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
 
         //Iterating through map array
         for(int i = 0; i < size.z; i++)
@@ -38,19 +49,50 @@ public class FiniteMap: MonoBehaviour
         {
         for(int k = 0; k < size.x; k++)
         {
-            mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+            var bases = mapBases.Where(mb => mb.BaseModulesPositions.Contains(new Vector3Int(k, j, i)));
+            if(bases.Count() > 0)
+            {
+                List<Module> initModules = new List<Module>();
+                foreach(MapBase mb in bases)
+                {
+                    foreach(string tag in mb.ModulesTags)
+                    {
+                        IEnumerable<Module> cached;
+                        if(tagModuleCache.TryGetValue(tag, out cached))
+                        {
+                            initModules.AddRange(cached);
+                        }
+                        else
+                        {
+                            cached = ModulesWithTag(tag);
+                            tagModuleCache.Add(tag, cached);
+                            initModules.AddRange(cached);
+                        }
+                    }
+                }
+                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), initModules);
+            }
+            else
+            {
+                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+            }
             debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
             debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
         }
 
-        entropySortedSlotQueue.Add(mapData[size.x/2, size.y/2, size.z/2], 0);
+        entropySortedSlotQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
     }
 
-    public Slot GetSlotAt(int x, int y, int z)
+    public Slot GetSlotAt(Vector3Int position)
     {
-        return mapData[x, y, z];
+        return mapData[position.x, position.y, position.z];
+    }
+
+    public IEnumerable<Module> ModulesWithTag(string tag)
+    {
+        return generatedMapModules.Where<Module>(m => m.Tags.Contains<string>(tag));
     }
 
     public void PropagateSlotCollapse(Slot collapsedSlot)
@@ -61,7 +103,7 @@ public class FiniteMap: MonoBehaviour
             var queueElement = updateQueue.Dequeue();
             if(queueElement.Item2.x >= size.x || queueElement.Item2.y >= size.y || queueElement.Item2.z >= size.z || 
                 queueElement.Item2.x < 0 || queueElement.Item2.y < 0 || queueElement.Item2.z < 0) continue;
-            Slot queueElementSlot = mapData[queueElement.Item2.x, queueElement.Item2.y, queueElement.Item2.z];
+            Slot queueElementSlot = GetSlotAt(queueElement.Item2);
             if(queueElementSlot.IsCollapsed) continue;
             if(queueElementSlot.Spread(queueElement.Item3, queueElement.Item1))
             {
@@ -109,13 +151,40 @@ public class FiniteMap: MonoBehaviour
         {
         for(int k = 0; k < size.x; k++)
         {
-            mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
-            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3(k*moduleSize.x,j*moduleSize.y,i*moduleSize.z), Quaternion.identity, transform);
+            var bases = mapBases.Where(mb => mb.BaseModulesPositions.Contains(new Vector3Int(k, j, i)));
+            if(bases.Count() > 0)
+            {
+                List<Module> initModules = new List<Module>();
+                foreach(MapBase mb in bases)
+                {
+                    foreach(string tag in mb.ModulesTags)
+                    {
+                        IEnumerable<Module> cached;
+                        if(tagModuleCache.TryGetValue(tag, out cached))
+                        {
+                            initModules.AddRange(cached);
+                        }
+                        else
+                        {
+                            cached = ModulesWithTag(tag);
+                            tagModuleCache.Add(tag, cached);
+                            initModules.AddRange(cached);
+                        }
+                    }
+                }
+                initModules.ForEach(m => Debug.Log(m.Dummy.name));
+                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), initModules);
+            }
+            else
+            {
+                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+            }
+            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
             debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
         }
 
-        entropySortedSlotQueue.Add(mapData[size.x/2, size.y/2, size.z/2], 0);
+        entropySortedSlotQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
     }
 }

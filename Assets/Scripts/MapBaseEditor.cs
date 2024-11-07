@@ -12,7 +12,7 @@ public class MapBaseEditor : Editor
 
         if(GUILayout.Button("Generate frame"))
         {
-            mapBase.FillWithFrame(mapBase.frameSize, mapBase.position);
+            mapBase.FillWithFrame(mapBase.FrameSize);
         }
     }
 }

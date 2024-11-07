@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c84666f92cc1a4090986bea52232c7, type: 3}
   m_Name: frame
   m_EditorClassIdentifier: 
-  baseModulePosition:
-  - {x: -1, y: -1, z: 0}
-  - {x: 0, y: -1, z: 0}
-  - {x: 1, y: -1, z: 0}
-  - {x: 2, y: -1, z: 0}
-  - {x: 3, y: -1, z: 0}
-  - {x: 4, y: -1, z: 0}
-  - {x: -1, y: 0, z: 0}
+  BaseModulesPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 2, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
   - {x: 4, y: 0, z: 0}
-  - {x: -1, y: 1, z: 0}
-  - {x: 4, y: 1, z: 0}
-  - {x: -1, y: 2, z: 0}
-  - {x: 4, y: 2, z: 0}
-  - {x: -1, y: 3, z: 0}
-  - {x: 4, y: 3, z: 0}
-  - {x: -1, y: 4, z: 0}
-  - {x: 0, y: 4, z: 0}
-  - {x: 1, y: 4, z: 0}
-  - {x: 2, y: 4, z: 0}
-  - {x: 3, y: 4, z: 0}
-  - {x: 4, y: 4, z: 0}
-  modulesTags:
-  - wfcFrame
-  frameSize: {x: 6, y: 6}
-  position: {x: -1, y: -1, z: 0}
+  - {x: 5, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  - {x: 5, y: 0, z: 1}
+  - {x: 0, y: 0, z: 2}
+  - {x: 5, y: 0, z: 2}
+  - {x: 0, y: 0, z: 3}
+  - {x: 5, y: 0, z: 3}
+  - {x: 0, y: 0, z: 4}
+  - {x: 5, y: 0, z: 4}
+  - {x: 0, y: 0, z: 5}
+  - {x: 1, y: 0, z: 5}
+  - {x: 2, y: 0, z: 5}
+  - {x: 3, y: 0, z: 5}
+  - {x: 4, y: 0, z: 5}
+  - {x: 5, y: 0, z: 5}
+  ModulesTags:
+  - grass
+  FrameSize: {x: 7, y: 0, z: 7}
+  Position: {x: 0, y: 0, z: 0}

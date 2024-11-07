@@ -64,6 +64,8 @@ public class DummyModule : MonoBehaviour
     public HorizontalConnector Back;
     public HorizontalConnector Left;
     public VerticalConnector Down;
+    public float Probability;
+    public string[] tags;
 
     public AbstractConnector[] ModuleConnectors 
     {
@@ -106,9 +108,6 @@ public class DummyModule : MonoBehaviour
         Handles.Label(transform.position + -transform.right, Left.ToString(), style);
         Handles.Label(transform.position + -transform.up, Down.ToString(), style);
     }
-
-
-    public float Probability;
 
     void OnDrawGizmosSelected()
     {

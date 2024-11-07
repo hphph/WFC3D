@@ -4,35 +4,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Map Base", menuName = "WFC/MapBase", order = 1)]
+[System.Serializable]
 public class MapBase : ScriptableObject
 {
-    public List<Vector3Int> baseModulePosition;
-    public String[] modulesTags;
-    public Vector2Int frameSize;
-    public Vector3Int position;
+    public List<Vector3Int> BaseModulesPositions;
+    public String[] ModulesTags;
+    public Vector3Int FrameSize;
+    public Vector3Int Position;
 
-    public void FillWithFrame(Vector2Int size, Vector3Int topLeftPos)
+    public Vector3Int TopRightBasePoint()
     {
-        if(size.x <= 0 || size.y <= 0) return;
-        if(size.x == 1 || size.y == 1)
+        Vector3Int topRightPoint = Vector3Int.zero;
+        foreach(Vector3Int v in BaseModulesPositions)
         {
-            baseModulePosition = size.x == 1 ? new List<Vector3Int>(size.y) : new List<Vector3Int>(size.x);
+            topRightPoint.x = v.x > topRightPoint.x ? v.x : topRightPoint.x;
+            topRightPoint.y = v.y > topRightPoint.y ? v.y : topRightPoint.y;
+            topRightPoint.z = v.z > topRightPoint.z ? v.z : topRightPoint.z;
+        }
+        return topRightPoint;
+    }
+
+    public void FillWithFrame(Vector3Int size)
+    {
+        if(size.x <= 0 || size.z <= 0) return;
+        if(size.x == 1 || size.z == 1)
+        {
+            BaseModulesPositions = size.x == 1 ? new List<Vector3Int>(size.z) : new List<Vector3Int>(size.x);
         }
         else
         {
-            baseModulePosition = new List<Vector3Int>(2*size.x + 2*size.y - 4);
+            BaseModulesPositions = new List<Vector3Int>(2*size.x + 2*size.z - 4);
         }
-        for(int i = position.y; i < size.y + position.y; i++)
+        for(int i = Position.z; i < size.z + Position.y; i++)
         {
-            for(int j = position.x; j < size.x + position.x; j++)
+            for(int j = Position.x; j < size.x + Position.x; j++)
             {
-                if(i == position.y || i == size.y + position.y - 1)
+                if(i == Position.z || i == size.z + Position.z - 1)
                 {
-                    baseModulePosition.Add(new Vector3Int(j, i, 0));
+                    BaseModulesPositions.Add(new Vector3Int(j, size.y, i));
                 }
-                else if(j == position.x || j == size.x + position.x - 1)
+                else if(j == Position.x || j == size.x + Position.x - 1)
                 {
-                    baseModulePosition.Add(new Vector3Int(j, i, 0));
+                    BaseModulesPositions.Add(new Vector3Int(j, size.y, i));
                 }
             }
         }
