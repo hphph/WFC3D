@@ -11,14 +11,18 @@ public class FiniteMap: MonoBehaviour
     [SerializeField] MapBase[] mapBases;
     List<GameObject> mapDummyModulePrefabs;
     List<Module> generatedMapModules;
-    Slot[,,] mapData;
+    ModuleSocket[,,] mapData;
     GameObject[,,] debugSlots;
-    PriorityQueueSet<Slot> entropySortedSlotQueue;
+    PriorityQueueSet<ModuleSocket> entropySortedModuleSocketQueue;
     Dictionary<string, IEnumerable<Module>> tagModuleCache;
     
 
     void Awake()
     {
+        generatedMapModules = new List<Module>();
+        mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
+        tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
+        
         foreach(MapBase mapBase in mapBases)
         {
             Vector3Int topRightPoint = mapBase.TopRightBasePoint();
@@ -26,22 +30,26 @@ public class FiniteMap: MonoBehaviour
             size.y = topRightPoint.y > size.y ? topRightPoint.y : size.y; 
             size.z = topRightPoint.z > size.z ? topRightPoint.z : size.z; 
         }
-        
-        entropySortedSlotQueue = new PriorityQueueSet<Slot>();
-        mapData = new Slot[size.x, size.y, size.z];
-        debugSlots = new GameObject[size.x, size.y, size.z];
-        generatedMapModules = new List<Module>();
-        mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
-        foreach(Transform child in dummyModulesPrefab.transform)
-        {
-            mapDummyModulePrefabs.Add(child.gameObject);
-        }
+
         foreach(GameObject prefab in mapDummyModulePrefabs)
         {
             generatedMapModules.AddRange(Module.GenerateModulesFromDummy(prefab));
         }
-        tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
 
+        foreach(Transform child in dummyModulesPrefab.transform)
+        {
+            mapDummyModulePrefabs.Add(child.gameObject);
+        }
+        
+        InitNewMap();
+    }
+
+    public void InitNewMap()
+    {
+        entropySortedModuleSocketQueue = new PriorityQueueSet<ModuleSocket>();
+        mapData = new ModuleSocket[size.x, size.y, size.z];
+        debugSlots = new GameObject[size.x, size.y, size.z];
+        
         //Iterating through map array
         for(int i = 0; i < size.z; i++)
         {
@@ -70,22 +78,23 @@ public class FiniteMap: MonoBehaviour
                         }
                     }
                 }
-                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), initModules);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), initModules);
             }
             else
             {
-                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), generatedMapModules);
             }
-            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
+            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab, transform);
+            debugSlots[k,j,i].transform.localPosition = new Vector3(k * moduleSize.x, j*moduleSize.y, i*moduleSize.z);
             debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
         }
         }
         }
 
-        entropySortedSlotQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
+        entropySortedModuleSocketQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
     }
 
-    public Slot GetSlotAt(Vector3Int position)
+    public ModuleSocket GetSocketAt(Vector3Int position)
     {
         return mapData[position.x, position.y, position.z];
     }
@@ -95,96 +104,53 @@ public class FiniteMap: MonoBehaviour
         return generatedMapModules.Where<Module>(m => m.Tags.Contains<string>(tag));
     }
 
-    public void PropagateSlotCollapse(Slot collapsedSlot)
+    public void PropagateSocketCollapse(ModuleSocket collapsedSocket)
     {
-        Queue<(WFCTools.DirectionIndex, Vector3Int, Slot)> updateQueue = new Queue<(WFCTools.DirectionIndex, Vector3Int, Slot)>(WFCTools.NeighboursToSlot(collapsedSlot));
+        Queue<(WFCTools.DirectionIndex, Vector3Int, ModuleSocket)> updateQueue = new Queue<(WFCTools.DirectionIndex, Vector3Int, ModuleSocket)>(WFCTools.NeighboursToSocket(collapsedSocket));
         while(updateQueue.Count > 0)
         {
             var queueElement = updateQueue.Dequeue();
             if(queueElement.Item2.x >= size.x || queueElement.Item2.y >= size.y || queueElement.Item2.z >= size.z || 
                 queueElement.Item2.x < 0 || queueElement.Item2.y < 0 || queueElement.Item2.z < 0) continue;
-            Slot queueElementSlot = GetSlotAt(queueElement.Item2);
-            if(queueElementSlot.IsCollapsed) continue;
-            if(queueElementSlot.Spread(queueElement.Item3, queueElement.Item1))
+            ModuleSocket queueElementSocket = GetSocketAt(queueElement.Item2);
+            if(queueElementSocket.IsCollapsed) continue;
+            if(queueElementSocket.Spread(queueElement.Item3, queueElement.Item1))
             {
-                foreach(var n in WFCTools.NeighboursToSlot(queueElementSlot))
+                foreach(var n in WFCTools.NeighboursToSocket(queueElementSocket))
                 {
                     updateQueue.Enqueue(n);
                 }
             }
-            entropySortedSlotQueue.Add(queueElementSlot, queueElementSlot.Entropy());
+            entropySortedModuleSocketQueue.Add(queueElementSocket, queueElementSocket.Entropy());
         }
     }
     
-    public bool CollapseLowestEntropySlotAndPropagateChange()
+    public bool CollapseLowestEntropyModuleSocketAndPropagateChange()
     {
-        if(entropySortedSlotQueue.Count == 0) return false;
-        Slot lowestEntropySlot = entropySortedSlotQueue.ExtractMin();
-        if(lowestEntropySlot.Possibilities.Count == 0) 
+        if(entropySortedModuleSocketQueue.Count == 0) return false;
+        ModuleSocket lowestEntropySocket = entropySortedModuleSocketQueue.ExtractMin();
+        if(lowestEntropySocket.Possibilities.Count == 0) 
         {
             Clear();
             return true;
         }
-        lowestEntropySlot.Collapse();
-        if(lowestEntropySlot.IsCollapsed)
+        lowestEntropySocket.Collapse();
+        if(lowestEntropySocket.IsCollapsed)
         {
-            Instantiate(lowestEntropySlot.CollapsedModule.Prefab, new Vector3(lowestEntropySlot.Position.x * moduleSize.x, lowestEntropySlot.Position.y * moduleSize.y, lowestEntropySlot.Position.z * moduleSize.z), Quaternion.Euler(0, 90 * lowestEntropySlot.CollapsedModule.Rotation, 0), debugSlots[lowestEntropySlot.Position.x, lowestEntropySlot.Position.y, lowestEntropySlot.Position.z].transform);
-            PropagateSlotCollapse(lowestEntropySlot);
+            GameObject collapsedModuleSocket = Instantiate(lowestEntropySocket.CollapsedModule.Prefab, debugSlots[lowestEntropySocket.Position.x, lowestEntropySocket.Position.y, lowestEntropySocket.Position.z].transform, false);
+            collapsedModuleSocket.transform.localPosition = Vector3.zero;
+            collapsedModuleSocket.transform.rotation = Quaternion.Euler(0, 90 * lowestEntropySocket.CollapsedModule.Rotation, 0);
+            PropagateSocketCollapse(lowestEntropySocket);
         }
         return true;
     }
 
     public void Clear()
     {
-        entropySortedSlotQueue = new PriorityQueueSet<Slot>();
-        mapData = new Slot[size.x, size.y, size.z];
-        debugSlots = new GameObject[size.x, size.y, size.z];
         foreach(Transform child in transform)
         {
             Destroy(child.gameObject);
         }
-
-        //Iterating through map array
-        for(int i = 0; i < size.z; i++)
-        {
-        for(int j = 0; j < size.y; j++)
-        {
-        for(int k = 0; k < size.x; k++)
-        {
-            var bases = mapBases.Where(mb => mb.BaseModulesPositions.Contains(new Vector3Int(k, j, i)));
-            if(bases.Count() > 0)
-            {
-                List<Module> initModules = new List<Module>();
-                foreach(MapBase mb in bases)
-                {
-                    foreach(string tag in mb.ModulesTags)
-                    {
-                        IEnumerable<Module> cached;
-                        if(tagModuleCache.TryGetValue(tag, out cached))
-                        {
-                            initModules.AddRange(cached);
-                        }
-                        else
-                        {
-                            cached = ModulesWithTag(tag);
-                            tagModuleCache.Add(tag, cached);
-                            initModules.AddRange(cached);
-                        }
-                    }
-                }
-                initModules.ForEach(m => Debug.Log(m.Dummy.name));
-                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), initModules);
-            }
-            else
-            {
-                mapData[k,j,i] = new Slot(new Vector3Int(k,j,i), generatedMapModules);
-            }
-            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab,new Vector3Int(k,j,i)*2, Quaternion.identity, transform);
-            debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
-        }
-        }
-        }
-
-        entropySortedSlotQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
+        InitNewMap();
     }
 }

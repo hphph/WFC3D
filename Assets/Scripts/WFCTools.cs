@@ -11,16 +11,16 @@ public class WFCTools
     /// <summary>
     /// </summary>
     /// <returns>Dictionary of direction, vector pairs for every neighbour to a slot. Direction points at parent slot.</returns>
-    public static (DirectionIndex, Vector3Int, Slot)[] NeighboursToSlot(Slot slot)
+    public static (DirectionIndex, Vector3Int, ModuleSocket)[] NeighboursToSocket(ModuleSocket socket)
     {
-        (DirectionIndex, Vector3Int, Slot)[] neighbours = new (DirectionIndex, Vector3Int, Slot)[]
+        (DirectionIndex, Vector3Int, ModuleSocket)[] neighbours = new (DirectionIndex, Vector3Int, ModuleSocket)[]
         {
-            ( DirectionIndex.Left, new Vector3Int(slot.Position.x + 1, slot.Position.y, slot.Position.z), slot ),
-            ( DirectionIndex.Forward, new Vector3Int(slot.Position.x, slot.Position.y, slot.Position.z - 1), slot ),
-            ( DirectionIndex.Up, new Vector3Int(slot.Position.x, slot.Position.y - 1, slot.Position.z), slot ),
-            ( DirectionIndex.Right, new Vector3Int(slot.Position.x - 1, slot.Position.y, slot.Position.z), slot ),
-            ( DirectionIndex.Back, new Vector3Int(slot.Position.x, slot.Position.y, slot.Position.z + 1), slot ),
-            ( DirectionIndex.Down, new Vector3Int(slot.Position.x, slot.Position.y + 1, slot.Position.z), slot ),
+            ( DirectionIndex.Left, new Vector3Int(socket.Position.x + 1, socket.Position.y, socket.Position.z), socket ),
+            ( DirectionIndex.Forward, new Vector3Int(socket.Position.x, socket.Position.y, socket.Position.z - 1), socket ),
+            ( DirectionIndex.Up, new Vector3Int(socket.Position.x, socket.Position.y - 1, socket.Position.z), socket ),
+            ( DirectionIndex.Right, new Vector3Int(socket.Position.x - 1, socket.Position.y, socket.Position.z), socket ),
+            ( DirectionIndex.Back, new Vector3Int(socket.Position.x, socket.Position.y, socket.Position.z + 1), socket ),
+            ( DirectionIndex.Down, new Vector3Int(socket.Position.x, socket.Position.y + 1, socket.Position.z), socket ),
         };
         
         return neighbours;

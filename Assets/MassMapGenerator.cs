@@ -32,7 +32,7 @@ public class MassMapGenerator : MonoBehaviour
             //newMap.Clear();
             while(hasCollapsed)
             {
-                hasCollapsed = newMap.CollapseLowestEntropySlotAndPropagateChange();
+                hasCollapsed = newMap.CollapseLowestEntropyModuleSocketAndPropagateChange();
             }
             generated++;
             Debug.Log("Generated " + (float)generated/(numberOfMaps.x*numberOfMaps.y*numberOfMaps.z) + "%");

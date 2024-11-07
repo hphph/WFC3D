@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class Slot
+public class ModuleSocket
 {
     Module collapsedModule;
     List<Module> possibilities;
@@ -24,7 +22,7 @@ public class Slot
 		}
 		return result;
 	}
-    public Slot(Vector3Int position, IEnumerable<Module> possibilites)
+    public ModuleSocket(Vector3Int position, IEnumerable<Module> possibilites)
 	{
 		this.position = position;
 		this.possibilities = new List<Module>(possibilites);
@@ -34,7 +32,7 @@ public class Slot
 	/// Removes possibilities that not align with given neighbour.
 	/// Retruns true if number of possibilities have dropped.
 	/// </summary>
-    public bool Spread(Slot neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
+    public bool Spread(ModuleSocket neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
 	{
 		HashSet<Module> newPossibilities = new HashSet<Module>();
 		if(neighbour.IsCollapsed)
@@ -66,7 +64,7 @@ public class Slot
 		return hasChanged;
 	}
 
-	public void ReduceExcludedPossibilities(Slot neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
+	public void ReduceExcludedPossibilities(ModuleSocket neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
 	{
 		if(!neighbour.IsCollapsed) return;
 		int removed;

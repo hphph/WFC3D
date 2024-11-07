@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &385609226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  numberOfMaps: {x: 3, y: 3, z: 1}
-  spaceBetween: {x: 30, y: 30, z: 30}
+  numberOfMaps: {x: 3, y: 3, z: 3}
+  spaceBetween: {x: 10, y: 10, z: 10}
 --- !u!4 &385609227
 Transform:
   m_ObjectHideFlags: 0
@@ -461,6 +461,7 @@ MonoBehaviour:
     type: 3}
   mapBases:
   - {fileID: 11400000, guid: eabb5937f5d64e246ad85d2b7d1a9978, type: 2}
+  updateDebug: 0
 --- !u!4 &630921861
 Transform:
   m_ObjectHideFlags: 0

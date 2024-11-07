@@ -17,10 +17,10 @@ public class DebugSlot : MonoBehaviour
             probability = origin.Probability;
         }
     }
-    Slot observedSlot;
+    ModuleSocket observedSlot;
     public List<DebugModule> Possibilities;
 
-    public void SetObservedSlot(Slot toObserve)
+    public void SetObservedSlot(ModuleSocket toObserve)
     {
         observedSlot = toObserve;
         gameObject.name = observedSlot.Position + "Debug Slot";
@@ -37,11 +37,11 @@ public class DebugSlot : MonoBehaviour
         }
     }
 
-    void Update()
+    /*void Update()
     {
         if(observedSlot.Possibilities.Count < Possibilities.Count)
         {
             UpdatePossibilities();
         }
-    }
+    } */
 }

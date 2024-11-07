@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
         bool hasCollapsed = true;
         while(hasCollapsed)
         {
-            hasCollapsed = map.CollapseLowestEntropySlotAndPropagateChange();
+            hasCollapsed = map.CollapseLowestEntropyModuleSocketAndPropagateChange();
         }
         Debug.Log("Map Generated");
     }
@@ -23,6 +23,6 @@ public class MapGenerator : MonoBehaviour
 
     public void CollapseNextSlot()
     {
-        Debug.Log("Has collapsed: " + map.CollapseLowestEntropySlotAndPropagateChange());
+        Debug.Log("Has collapsed: " + map.CollapseLowestEntropyModuleSocketAndPropagateChange());
     }
 }
