@@ -461,7 +461,6 @@ MonoBehaviour:
     type: 3}
   mapBases:
   - {fileID: 11400000, guid: eabb5937f5d64e246ad85d2b7d1a9978, type: 2}
-  updateDebug: 0
 --- !u!4 &630921861
 Transform:
   m_ObjectHideFlags: 0

@@ -19,8 +19,8 @@ public class FiniteMap: MonoBehaviour
 
     void Awake()
     {
-        generatedMapModules = new List<Module>();
         mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
+        generatedMapModules = new List<Module>();
         tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
         
         foreach(MapBase mapBase in mapBases)
@@ -31,14 +31,14 @@ public class FiniteMap: MonoBehaviour
             size.z = topRightPoint.z > size.z ? topRightPoint.z : size.z; 
         }
 
-        foreach(GameObject prefab in mapDummyModulePrefabs)
-        {
-            generatedMapModules.AddRange(Module.GenerateModulesFromDummy(prefab));
-        }
 
         foreach(Transform child in dummyModulesPrefab.transform)
         {
             mapDummyModulePrefabs.Add(child.gameObject);
+        }
+        foreach(GameObject prefab in mapDummyModulePrefabs)
+        {
+            generatedMapModules.AddRange(Module.GenerateModulesFromDummy(prefab));
         }
         
         InitNewMap();
