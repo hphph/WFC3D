@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  numberOfMaps: {x: 3, y: 3, z: 3}
+  numberOfMaps: {x: 5, y: 2, z: 5}
   spaceBetween: {x: 10, y: 10, z: 10}
 --- !u!4 &385609227
 Transform:
