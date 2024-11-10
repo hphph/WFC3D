@@ -1,56 +1,61 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using C5;
+using Unity.VisualScripting;
 
 public class PriorityQueueSet<T>
 {
-    HashSet<T> set;
-    List<Tuple<T, float>> elements;
+    System.Collections.Generic.HashSet<T> set;
+    Dictionary<T, IPriorityQueueHandle<ValueTuple<float, T>>> heapReferences;
+    IntervalHeap<ValueTuple<float, T>> heap;
 
-    public int Count => elements.Count;
+    public int Count => set.Count;
+
+    private class FloatTComparer : IComparer<ValueTuple<float, T>>
+    {
+        public int Compare(ValueTuple<float, T> x, ValueTuple<float, T> y)
+        {
+            return x.Item1.CompareTo(y.Item1);
+        }
+    }
 
     public PriorityQueueSet()
     {
-        set = new HashSet<T>();
-        elements = new List<Tuple<T, float>>();
+        set = new System.Collections.Generic.HashSet<T>();
+        heap = new IntervalHeap<ValueTuple<float, T>>(new FloatTComparer());
+        heapReferences = new Dictionary<T, IPriorityQueueHandle<(float, T)>>();
     }
 
-    public void Add(T item, float key)
+    public void Add(T key, float value)
     {
-        Tuple<T, float> element = new Tuple<T, float>(item, key);
-        if(set.Add(item))
+        ValueTuple<float, T> element = (value, key);
+        if(set.Add(key))
         {
-            elements.Add(element);
+            IPriorityQueueHandle<ValueTuple<float, T>> handle = null; 
+            heap.Add(ref handle, element);
+            heapReferences.Add(key, handle);
         }
         else
         {
-            int sameItemIndex = elements.FindIndex( e => ReferenceEquals(e.Item1, item));
-            if(key != elements[sameItemIndex].Item2) 
+            var heapHandle = heapReferences[key];
+            heap.Find(heapHandle, out ValueTuple<float, T> heapElement);
+            if(value != heapElement.Item1) 
             {
-                elements.RemoveAt(sameItemIndex);
-                elements.Add(element);
+                IPriorityQueueHandle<ValueTuple<float, T>> handle = null; 
+                heap.Delete(heapHandle);
+                heapReferences.Remove(key);
+                heap.Add(ref handle, element);
+                heapReferences.Add(key, handle);
             }
         }
     }
 
     public T ExtractMin()
     {
-        if(elements.Count == 0) return default(T);
-        float lowestValue = elements[0].Item2;
-        int lowestValueIndex = 0;
-
-        for(int i = 0; i < elements.Count; i++)
-        {
-            if(elements[i].Item2 < lowestValue)
-            {
-                lowestValue = elements[i].Item2;
-                lowestValueIndex = i;
-            }
-        }
-        T minElement = elements[lowestValueIndex].Item1;
-        elements.RemoveAt(lowestValueIndex);
-        set.Remove(minElement);
-
-        return minElement;
+        if(set.Count == 0) return default(T);
+        ValueTuple<float, T> minElement = heap.DeleteMin();
+        heapReferences.Remove(minElement.Item2);
+        set.Remove(minElement.Item2);
+        return minElement.Item2;
     }
 }
