@@ -5,11 +5,10 @@ using Unity.VisualScripting;
 
 public class PriorityQueueSet<T>
 {
-    System.Collections.Generic.HashSet<T> set;
     Dictionary<T, IPriorityQueueHandle<ValueTuple<float, T>>> heapReferences;
     IntervalHeap<ValueTuple<float, T>> heap;
 
-    public int Count => set.Count;
+    public int Count => heap.Count;
 
     private class FloatTComparer : IComparer<ValueTuple<float, T>>
     {
@@ -21,7 +20,6 @@ public class PriorityQueueSet<T>
 
     public PriorityQueueSet()
     {
-        set = new System.Collections.Generic.HashSet<T>();
         heap = new IntervalHeap<ValueTuple<float, T>>(new FloatTComparer());
         heapReferences = new Dictionary<T, IPriorityQueueHandle<(float, T)>>();
     }
@@ -29,7 +27,7 @@ public class PriorityQueueSet<T>
     public void Add(T key, float value)
     {
         ValueTuple<float, T> element = (value, key);
-        if(set.Add(key))
+        if(!heapReferences.ContainsKey(key))
         {
             IPriorityQueueHandle<ValueTuple<float, T>> handle = null; 
             heap.Add(ref handle, element);
@@ -52,10 +50,9 @@ public class PriorityQueueSet<T>
 
     public T ExtractMin()
     {
-        if(set.Count == 0) return default(T);
+        if(heap.Count == 0) return default(T);
         ValueTuple<float, T> minElement = heap.DeleteMin();
         heapReferences.Remove(minElement.Item2);
-        set.Remove(minElement.Item2);
         return minElement.Item2;
     }
 }
