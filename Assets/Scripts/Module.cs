@@ -81,12 +81,7 @@ public class Module
 
     static public int RotateHorizontallyConnector(int connectorIndex, int rotation)
     {
-        return HorizontalIndexes()[mod(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
-    }
-
-    public static int mod(int x, int m) 
-    {
-        return (x%m + m)%m;
+        return HorizontalIndexes()[WFCTools.Mod(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
     }
 
     public static Module[] GenerateModulesFromDummy(GameObject dummyPrefab)

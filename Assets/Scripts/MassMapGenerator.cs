@@ -34,7 +34,7 @@ public class MassMapGenerator : MonoBehaviour
                 yield return null;
             }
             generated++;
-            Debug.Log("Generated " + (float)generated/(numberOfMaps.x*numberOfMaps.y*numberOfMaps.z) + "%");
+            Debug.Log("Generated " + 100*(float)generated/(numberOfMaps.x*numberOfMaps.y*numberOfMaps.z) + "%");
             yield return null;
         }
         }

@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class InfiniteMap : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Vector3 moduleSize;
+    [SerializeField] GameObject dummyModulesPrefab;
+    List<GameObject> mapDummyModulePrefabs;
+    List<Module> generatedMapModules;
+    Dictionary<Vector3Int, ModuleSocket> mapData;
+    
+    ModuleSocket GetSocketAt(Vector3Int position)
     {
-        
+        if(mapData.ContainsKey(position)) return mapData[position];
+        else return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator StartMapGeneration()
     {
-        
+        yield return null;
     }
 }

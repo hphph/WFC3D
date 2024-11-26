@@ -131,6 +131,7 @@ MonoBehaviour:
     - {fileID: 3658071418241977372}
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &2335498149514124732
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +257,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &2354227724342054329
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +383,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 0
   Probability: 1
+  tags: []
 --- !u!1 &3011534223447481401
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +511,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &3657319505013410919
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +637,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &4090034763700507900
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +763,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 10
+  tags: []
 --- !u!1 &5741406563185990701
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +889,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 0
   Probability: 1
+  tags: []
 --- !u!1 &5856053459082991430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1018,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &6276053707063704494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,6 +1144,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 0
   Probability: 1
+  tags: []
 --- !u!1 &6812164213132806872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8879628612370886859}
+  - component: {fileID: -1151878864511746191}
   m_Layer: 0
   m_Name: DummyModules 2
   m_TagString: Untagged
@@ -1180,6 +1190,18 @@ Transform:
   - {fileID: 4992825322646938312}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1151878864511746191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6812164213132806872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a17a70a1d3c672445a76c834258a6e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6838563590305016578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1333,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &7173960067542287319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,6 +1459,7 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &7498345372188143218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1593,7 @@ MonoBehaviour:
     - {fileID: 7234318767697840771}
     rotation: 4
   Probability: 1
+  tags: []
 --- !u!1 &8193319426888459502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,3 +1723,4 @@ MonoBehaviour:
     ExcludedDummyModules: []
     rotation: 0
   Probability: 1
+  tags: []

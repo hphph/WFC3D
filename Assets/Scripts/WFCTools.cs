@@ -26,6 +26,11 @@ public class WFCTools
         return neighbours;
     }
 
+    public static int Mod(int x, int m) 
+    {
+        return (x%m + m)%m;
+    }
+
     public static bool IsConnectorHorizontal(int connectorIndex)
     {
         return !((connectorIndex + 1) % 3 == 0);

@@ -7,17 +7,33 @@ public class FiniteMap: MonoBehaviour
     [SerializeField] Vector3Int size;
     [SerializeField] Vector3 moduleSize;
     [SerializeField] GameObject dummyModulesPrefab;
-    [SerializeField] GameObject DebugSlotPrefab;
+    [SerializeField] bool IsWrapping;
+    [SerializeField] bool IsDebugging;
     [SerializeField] MapBase[] mapBases;
     List<GameObject> mapDummyModulePrefabs;
     List<Module> generatedMapModules;
     ModuleSocket[,,] mapData;
-    GameObject[,,] debugSlots;
+    GameObject[,,] spawnSlots;
     PriorityQueueSet<ModuleSocket> entropySortedModuleSocketQueue;
     Dictionary<string, IEnumerable<Module>> tagModuleCache;
     
 
     void Awake()
+    {
+        PreInit();
+    }
+
+    public void InitCollapsedMap(Vector3Int size, Vector3 moduleSize, GameObject dummyModulesPrefab)
+    {
+        this.size = size;
+        this.moduleSize = moduleSize;
+        this.dummyModulesPrefab = dummyModulesPrefab;
+        IsWrapping = true;
+        IsDebugging = false;
+        PreInit();
+    }
+
+    void PreInit()
     {
         mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
         generatedMapModules = new List<Module>();
@@ -48,7 +64,7 @@ public class FiniteMap: MonoBehaviour
     {
         entropySortedModuleSocketQueue = new PriorityQueueSet<ModuleSocket>();
         mapData = new ModuleSocket[size.x, size.y, size.z];
-        debugSlots = new GameObject[size.x, size.y, size.z];
+        spawnSlots = new GameObject[size.x, size.y, size.z];
         
         //Iterating through map array
         for(int i = 0; i < size.z; i++)
@@ -84,14 +100,19 @@ public class FiniteMap: MonoBehaviour
             {
                 mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), generatedMapModules);
             }
-            debugSlots[k,j,i] = Instantiate(DebugSlotPrefab, transform);
-            debugSlots[k,j,i].transform.localPosition = new Vector3(k * moduleSize.x, j*moduleSize.y, i*moduleSize.z);
-            debugSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
+            spawnSlots[k,j,i] = new GameObject("Slot " + "( " + k + ", " + j + ", " + i + ")");
+            spawnSlots[k,j,i].transform.SetParent(transform);
+            spawnSlots[k,j,i].transform.localPosition = new Vector3(k * moduleSize.x, j*moduleSize.y, i*moduleSize.z);
+            if(IsDebugging)
+            {
+                spawnSlots[k,j,i].AddComponent<DebugSlot>();
+                spawnSlots[k,j,i].GetComponent<DebugSlot>().SetObservedSlot(mapData[k, j, i]);
+            }
         }
         }
         }
 
-        entropySortedModuleSocketQueue.Add(mapData[0, 0, 0], mapData[0,0,0].Entropy());
+        entropySortedModuleSocketQueue.Add(mapData[size.x/2, size.y/2, size.z/2], mapData[size.x/2, size.y/2, size.z/2].Entropy());
     }
 
     public ModuleSocket GetSocketAt(Vector3Int position)
@@ -110,7 +131,13 @@ public class FiniteMap: MonoBehaviour
         while(updateQueue.Count > 0)
         {
             var queueElement = updateQueue.Dequeue();
-            if(queueElement.Item2.x >= size.x || queueElement.Item2.y >= size.y || queueElement.Item2.z >= size.z || 
+            if(IsWrapping)
+            {
+                queueElement.Item2.x = WFCTools.Mod(queueElement.Item2.x, size.x);
+                queueElement.Item2.z = WFCTools.Mod(queueElement.Item2.z, size.z);
+                if(queueElement.Item2.y >= size.y || queueElement.Item2.y < 0) continue;
+            }
+            else if(queueElement.Item2.x >= size.x || queueElement.Item2.y >= size.y || queueElement.Item2.z >= size.z || 
                 queueElement.Item2.x < 0 || queueElement.Item2.y < 0 || queueElement.Item2.z < 0) continue;
             ModuleSocket queueElementSocket = GetSocketAt(queueElement.Item2);
             if(queueElementSocket.IsCollapsed) continue;
@@ -137,7 +164,7 @@ public class FiniteMap: MonoBehaviour
         lowestEntropySocket.Collapse();
         if(lowestEntropySocket.IsCollapsed)
         {
-            GameObject collapsedModuleSocket = Instantiate(lowestEntropySocket.CollapsedModule.Prefab, debugSlots[lowestEntropySocket.Position.x, lowestEntropySocket.Position.y, lowestEntropySocket.Position.z].transform, false);
+            GameObject collapsedModuleSocket = Instantiate(lowestEntropySocket.CollapsedModule.Prefab, spawnSlots[lowestEntropySocket.Position.x, lowestEntropySocket.Position.y, lowestEntropySocket.Position.z].transform, false);
             collapsedModuleSocket.transform.localPosition = Vector3.zero;
             collapsedModuleSocket.transform.rotation = Quaternion.Euler(0, 90 * lowestEntropySocket.CollapsedModule.Rotation, 0);
             PropagateSocketCollapse(lowestEntropySocket);

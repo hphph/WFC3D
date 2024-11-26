@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  numberOfMaps: {x: 1, y: 1, z: 1}
-  spaceBetween: {x: 10, y: 10, z: 10}
+  numberOfMaps: {x: 2, y: 1, z: 2}
+  spaceBetween: {x: 20, y: 20, z: 20}
 --- !u!4 &385609227
 Transform:
   m_ObjectHideFlags: 0
@@ -453,12 +453,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdffbedab1e9f354494594b3e131a7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 7, y: 5, z: 7}
+  size: {x: 6, y: 5, z: 6}
   moduleSize: {x: 2, y: 2, z: 2}
   dummyModulesPrefab: {fileID: 6812164213132806872, guid: 5a781ff9ba49c0948a4e99749fa6ca76,
     type: 3}
-  DebugSlotPrefab: {fileID: 3493290215341917222, guid: 721978b173467724f85454a3a99d7067,
-    type: 3}
+  IsWrapping: 1
+  IsDebugging: 0
   mapBases: []
 --- !u!4 &630921861
 Transform:

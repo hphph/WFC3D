@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DebugSlot : MonoBehaviour
 {
-    [Serializable]
+    [System.Serializable]
     public class DebugModule
     {
         public GameObject prefab;
@@ -36,12 +35,4 @@ public class DebugSlot : MonoBehaviour
             Possibilities.Add(new DebugModule(m));
         }
     }
-
-    /*void Update()
-    {
-        if(observedSlot.Possibilities.Count < Possibilities.Count)
-        {
-            UpdatePossibilities();
-        }
-    } */
 }
