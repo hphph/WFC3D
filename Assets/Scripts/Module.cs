@@ -1,22 +1,23 @@
-using System;
-using System.Data.Common;
 using UnityEngine;
 
+[System.Serializable]
 public class Module
 {
-    DummyModule dummy;
-    GameObject prefab;
-    int rotation;
-    int modulesFromDummy;
-    string[] tags;
+    [SerializeField] DummyModule dummy;
+    [SerializeField] GameObject prefab;
+    [SerializeField] int rotation;
+    [SerializeField] int modulesFromDummy;
+    [SerializeField] string[] tags;
+    [SerializeField] int index;
 
     public DummyModule Dummy => dummy;
     public GameObject Prefab => prefab;
     public int Rotation => rotation;
     public float Probability => dummy.Probability/modulesFromDummy;
     public string[] Tags => tags;
+    public int Index => index;
     
-    public Module(GameObject dummyPrefab, int rotation, int modulesFromDummy)
+    public Module(GameObject dummyPrefab, int rotation, int modulesFromDummy, int index)
     {
         dummy = dummyPrefab.GetComponent<DummyModule>();
         if(dummy == null) Debug.LogError("Missing DummyModule component in prefab");
@@ -24,6 +25,7 @@ public class Module
         this.rotation = rotation;
         if(rotation > 3) Debug.LogError("Wrong rotation value");
         this.modulesFromDummy = modulesFromDummy;
+        this.index = index;
         tags = dummy.tags;
     }
 
@@ -81,34 +83,6 @@ public class Module
 
     static public int RotateHorizontallyConnector(int connectorIndex, int rotation)
     {
-        return HorizontalIndexes()[WFCTools.Mod(Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
-    }
-
-    public static Module[] GenerateModulesFromDummy(GameObject dummyPrefab)
-    {
-        //TODO: make less modules based on dummy connections 
-        DummyModule dm = dummyPrefab.GetComponent<DummyModule>();
-        foreach(DummyModule.VerticalConnector vc in dm.VerticalConnectors)
-        {
-            //return 1
-            if(vc.rotation != DummyModule.VerticalConnector.RotationState.Invariant)
-            {
-                // return 4
-                break;
-            }
-        }
-
-        foreach(DummyModule.HorizontalConnector hc in dm.HorizontalConnectors)
-        {
-            // do zrobienia
-        }
-
-        Module[] generatedModules = new Module[4];
-        generatedModules[0] = new Module(dummyPrefab, 0, 4);
-        generatedModules[1] = new Module(dummyPrefab, 1, 4);
-        generatedModules[2] = new Module(dummyPrefab, 2, 4);
-        generatedModules[3] = new Module(dummyPrefab, 3, 4);
-
-        return generatedModules;
+        return HorizontalIndexes()[WFCTools.Mod(System.Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
     }
 }

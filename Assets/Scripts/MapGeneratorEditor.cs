@@ -22,5 +22,13 @@ public class MapGeneratorEditor : Editor
         {
             generator.Clear();
         }
+        if(GUILayout.Button("Create CollapsedMap"))
+        {
+            generator.CreateCollapsedMap();
+        }
+        if(GUILayout.Button("Show Collapsed Map"))
+        {
+            generator.ShowCollapsedMap();
+        }
     }
 }

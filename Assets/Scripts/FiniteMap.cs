@@ -6,18 +6,18 @@ public class FiniteMap: MonoBehaviour
 {
     [SerializeField] Vector3Int size;
     [SerializeField] Vector3 moduleSize;
-    [SerializeField] GameObject dummyModulesPrefab;
+    [SerializeField] ModuleData modulesData;
     [SerializeField] bool IsWrapping;
     [SerializeField] bool IsDebugging;
     [SerializeField] MapBase[] mapBases;
-    List<GameObject> mapDummyModulePrefabs;
-    List<Module> generatedMapModules;
     ModuleSocket[,,] mapData;
     GameObject[,,] spawnSlots;
     PriorityQueueSet<ModuleSocket> entropySortedModuleSocketQueue;
     Dictionary<string, IEnumerable<Module>> tagModuleCache;
-    
 
+    public Vector3Int Size => size;
+    public Vector3 MoudleSize => moduleSize;
+    
     void Awake()
     {
         PreInit();
@@ -27,16 +27,12 @@ public class FiniteMap: MonoBehaviour
     {
         this.size = size;
         this.moduleSize = moduleSize;
-        this.dummyModulesPrefab = dummyModulesPrefab;
         IsWrapping = true;
         IsDebugging = false;
-        PreInit();
     }
 
     void PreInit()
     {
-        mapDummyModulePrefabs = new List<GameObject>(dummyModulesPrefab.transform.childCount);
-        generatedMapModules = new List<Module>();
         tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
         
         foreach(MapBase mapBase in mapBases)
@@ -48,14 +44,7 @@ public class FiniteMap: MonoBehaviour
         }
 
 
-        foreach(Transform child in dummyModulesPrefab.transform)
-        {
-            mapDummyModulePrefabs.Add(child.gameObject);
-        }
-        foreach(GameObject prefab in mapDummyModulePrefabs)
-        {
-            generatedMapModules.AddRange(Module.GenerateModulesFromDummy(prefab));
-        }
+        
         
         InitNewMap();
     }
@@ -98,7 +87,7 @@ public class FiniteMap: MonoBehaviour
             }
             else
             {
-                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), generatedMapModules);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), modulesData.Modules);
             }
             spawnSlots[k,j,i] = new GameObject("Slot " + "( " + k + ", " + j + ", " + i + ")");
             spawnSlots[k,j,i].transform.SetParent(transform);
@@ -122,7 +111,7 @@ public class FiniteMap: MonoBehaviour
 
     public IEnumerable<Module> ModulesWithTag(string tag)
     {
-        return generatedMapModules.Where<Module>(m => m.Tags.Contains<string>(tag));
+        return modulesData.Modules.Where<Module>(m => m.Tags.Contains<string>(tag));
     }
 
     public void PropagateSocketCollapse(ModuleSocket collapsedSocket)
@@ -170,6 +159,23 @@ public class FiniteMap: MonoBehaviour
             PropagateSocketCollapse(lowestEntropySocket);
         }
         return true;
+    }
+
+    public void CreateCollapsedMap()
+    {
+        CollapsedMap result = ScriptableObject.CreateInstance<CollapsedMap>();
+        Module[] moduleData = new Module[size.x * size.y * size.z];
+        for(int i = 0; i < size.z; i++)
+        {
+        for(int j = 0; j < size.y; j++)
+        {
+        for(int k = 0; k < size.x; k++)
+        {
+            moduleData[i * size.y  * size.x + j*size.x + k] = mapData[k,j,i].CollapsedModule;
+        }
+        }
+        }
+        result.CreateCollapsedMap(size, moduleData);
     }
 
     public void Clear()

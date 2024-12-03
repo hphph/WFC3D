@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  numberOfMaps: {x: 2, y: 1, z: 2}
+  numberOfMaps: {x: 5, y: 5, z: 5}
   spaceBetween: {x: 20, y: 20, z: 20}
 --- !u!4 &385609227
 Transform:
@@ -453,10 +453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdffbedab1e9f354494594b3e131a7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 6, y: 5, z: 6}
+  size: {x: 8, y: 5, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
-  dummyModulesPrefab: {fileID: 6812164213132806872, guid: 5a781ff9ba49c0948a4e99749fa6ca76,
-    type: 3}
+  modulesData: {fileID: 11400000, guid: 532dd28f4d84a844bae6ea7044eb1cb1, type: 2}
   IsWrapping: 1
   IsDebugging: 0
   mapBases: []
@@ -554,6 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
+  collapsedMap: {fileID: 11400000, guid: 8fdc31a22c5092e4799a5dfe126644b4, type: 2}
 --- !u!4 &982161629
 Transform:
   m_ObjectHideFlags: 0

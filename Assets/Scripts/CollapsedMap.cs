@@ -1,18 +1,23 @@
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Collapsed Map", menuName = "WFC/CollapsedMap", order = 1)]
+[System.Serializable]
 public class CollapsedMap : ScriptableObject
 {
-    [SerializeField] Vector3Int chunkSize;
-    [SerializeField] Vector3 moduleSize;
-    [SerializeField] GameObject dummyModulesPrefab;
-    public FiniteMap mapData;
-    GameObject mapGO;
+    public Vector3Int Size;
+    public Module[] MapData;
 
-    public void GenerateCollapsedMap()
+    public void CreateCollapsedMap(Vector3Int size, Module[] mapData)
     {
-        mapGO = new GameObject("CollapsedMap");
-        mapData = mapGO.AddComponent<FiniteMap>();
-        mapData.InitCollapsedMap(chunkSize, moduleSize, dummyModulesPrefab);
+        Size = size;
+        MapData = new Module[Size.x*Size.y*Size.z];
+        System.Array.Copy(mapData, MapData, Size.x*Size.y*Size.z);
+        // Object[] assetsInFolder = Resources.LoadAll("Assets/CollapsedMaps");
+        // Debug.Log(assetsInFolder.Length);
+        AssetDatabase.CreateAsset(this, "Assets/CollapsedMaps/CollapsedMap.asset");
+        AssetDatabase.SaveAssets();
     }
+
+    public Module GetModuleAt(Vector3Int position) => MapData[position.z * Size.y * Size.x + position.y * Size.x + position.x];
+    
 }
