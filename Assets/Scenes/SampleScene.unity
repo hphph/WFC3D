@@ -554,6 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
   collapsedMap: {fileID: 11400000, guid: 8fdc31a22c5092e4799a5dfe126644b4, type: 2}
+  collaspedMapName: nowaMapa
 --- !u!4 &982161629
 Transform:
   m_ObjectHideFlags: 0

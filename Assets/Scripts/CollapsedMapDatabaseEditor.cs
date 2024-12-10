@@ -11,11 +11,8 @@ public class CollapsedMapDatabaseEditor: Editor
 
         if(GUILayout.Button("Generate new collapsed map"))
         {
-            collapsedMapDatabase.Add(Instantiate(collapsedMapDatabase.initialMap));
+            collapsedMapDatabase.CreateNewBasedOnInitial();
         }
-        else if(GUILayout.Button("Delete all collapsed maps"))
-        {
-            collapsedMapDatabase.Clear();
-        }
+        
     }
 }

@@ -34,7 +34,6 @@ public class FiniteMap: MonoBehaviour
     void PreInit()
     {
         tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
-        
         foreach(MapBase mapBase in mapBases)
         {
             Vector3Int topRightPoint = mapBase.TopRightBasePoint();
@@ -42,10 +41,6 @@ public class FiniteMap: MonoBehaviour
             size.y = topRightPoint.y > size.y ? topRightPoint.y : size.y; 
             size.z = topRightPoint.z > size.z ? topRightPoint.z : size.z; 
         }
-
-
-        
-        
         InitNewMap();
     }
 
@@ -161,7 +156,7 @@ public class FiniteMap: MonoBehaviour
         return true;
     }
 
-    public void CreateCollapsedMap()
+    public void CreateCollapsedMap(string name)
     {
         CollapsedMap result = ScriptableObject.CreateInstance<CollapsedMap>();
         Module[] moduleData = new Module[size.x * size.y * size.z];
@@ -175,7 +170,7 @@ public class FiniteMap: MonoBehaviour
         }
         }
         }
-        result.CreateCollapsedMap(size, moduleData);
+        result.CreateCollapsedMap(size, moduleData, name);
     }
 
     public void Clear()

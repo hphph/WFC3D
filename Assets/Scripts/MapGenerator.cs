@@ -6,6 +6,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     FiniteMap map;
     [SerializeField] CollapsedMap collapsedMap;
+    [SerializeField] string collaspedMapName;
 
     public void GenerateMap()
     {
@@ -30,7 +31,7 @@ public class MapGenerator : MonoBehaviour
 
     public void CreateCollapsedMap()
     {
-        map.CreateCollapsedMap();
+        map.CreateCollapsedMap(collaspedMapName);
     }
 
     public void ShowCollapsedMap()

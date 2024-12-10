@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab540c8f199968046bdc9aa9b88af0c8, type: 3}
   m_Name: Collapsed Map Database
   m_EditorClassIdentifier: 
-  initialMap: {fileID: 11400000, guid: 908e46363988ed54c8e46b873cd84a36, type: 2}
+  initialMap: {fileID: 11400000, guid: 6fff8af13678bcd4f9944b3badfb9691, type: 2}
+  basedMaps: []
