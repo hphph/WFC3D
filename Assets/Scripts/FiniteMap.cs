@@ -170,7 +170,19 @@ public class FiniteMap: MonoBehaviour
         }
         }
         }
-        result.CreateCollapsedMap(size, moduleData, name);
+        result.CreateCollapsedMap(size, moduleData, name, modulesData, moduleSize);
+    }
+
+    public void GenerateCollapsedMapWithBoundary(CollapsedMap boundary)
+    {
+        size = boundary.Size;
+        moduleSize = boundary.ModuleSize;
+        modulesData = boundary.ModuleData;
+        mapBases = new MapBase[0];
+        IsWrapping = true;
+        IsDebugging = false;
+        InitNewMap();
+
     }
 
     public void Clear()
