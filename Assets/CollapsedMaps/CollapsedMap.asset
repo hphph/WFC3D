@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: CollapsedMap
   m_EditorClassIdentifier: 
   Size: {x: 8, y: 5, z: 8}
+  ModuleSize: {x: 2, y: 2, z: 2}
+  ModuleData: {fileID: 11400000, guid: 532dd28f4d84a844bae6ea7044eb1cb1, type: 2}
   MapData:
   - dummy: {fileID: 704887189083159546, guid: 5a781ff9ba49c0948a4e99749fa6ca76, type: 3}
     prefab: {fileID: 7173960067542287319, guid: 5a781ff9ba49c0948a4e99749fa6ca76,

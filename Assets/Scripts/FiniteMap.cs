@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class FiniteMap: MonoBehaviour
@@ -14,6 +15,7 @@ public class FiniteMap: MonoBehaviour
     GameObject[,,] spawnSlots;
     PriorityQueueSet<ModuleSocket> entropySortedModuleSocketQueue;
     Dictionary<string, IEnumerable<Module>> tagModuleCache;
+    int collapsedModulesCount;
 
     public Vector3Int Size => size;
     public Vector3 MoudleSize => moduleSize;
@@ -21,14 +23,6 @@ public class FiniteMap: MonoBehaviour
     void Awake()
     {
         PreInit();
-    }
-
-    public void InitCollapsedMap(Vector3Int size, Vector3 moduleSize, GameObject dummyModulesPrefab)
-    {
-        this.size = size;
-        this.moduleSize = moduleSize;
-        IsWrapping = true;
-        IsDebugging = false;
     }
 
     void PreInit()
@@ -46,6 +40,7 @@ public class FiniteMap: MonoBehaviour
 
     public void InitNewMap()
     {
+        collapsedModulesCount = 0;
         entropySortedModuleSocketQueue = new PriorityQueueSet<ModuleSocket>();
         mapData = new ModuleSocket[size.x, size.y, size.z];
         spawnSlots = new GameObject[size.x, size.y, size.z];
@@ -135,6 +130,8 @@ public class FiniteMap: MonoBehaviour
             entropySortedModuleSocketQueue.Add(queueElementSocket, queueElementSocket.Entropy());
         }
     }
+
+   
     
     public bool CollapseLowestEntropyModuleSocketAndPropagateChange()
     {
@@ -153,12 +150,56 @@ public class FiniteMap: MonoBehaviour
             collapsedModuleSocket.transform.rotation = Quaternion.Euler(0, 90 * lowestEntropySocket.CollapsedModule.Rotation, 0);
             PropagateSocketCollapse(lowestEntropySocket);
         }
+        collapsedModulesCount++;
+        return true;
+    }
+
+    public void PropagateCollapsedBoundary(CollapsedMapSO boundary)
+    {
+        for(int z = 0; z < size.z; z++)
+        {
+            for(int y = 0; y < size.y; y++)
+            {
+                for(int x = 0; x < size.x; x++)
+                {
+                    if(x == 0 || z == 0 || x == boundary.Size.x-1 || z == boundary.Size.z-1)
+                    {
+                        ModuleSocket socket = GetSocketAt(new Vector3Int(x, y, z));
+                        if(x == 0) socket.Spread(boundary.GetModuleAt(new Vector3Int(boundary.Size.x-1, y, z)), WFCTools.DirectionIndex.Left);
+                        if(z == 0) socket.Spread(boundary.GetModuleAt(new Vector3Int(x, y, boundary.Size.z-1)), WFCTools.DirectionIndex.Back);
+                        if(x == size.x-1) socket.Spread(boundary.GetModuleAt(new Vector3Int(0, y, z)), WFCTools.DirectionIndex.Right);
+                        if(z == size.z-1) socket.Spread(boundary.GetModuleAt(new Vector3Int(x, y, 0)), WFCTools.DirectionIndex.Forward);
+                        entropySortedModuleSocketQueue.Add(socket, socket.Entropy());
+                    }
+                }
+            }
+        }
+    }
+
+//TODO: boundary check
+    public bool CollapseLowestEntropyModuleSocketAndPropagateChangeWithBoundary(CollapsedMapSO boundary)
+    {
+        if(entropySortedModuleSocketQueue.Count == 0) return false;
+        ModuleSocket lowestEntropySocket = entropySortedModuleSocketQueue.ExtractMin();
+        if(lowestEntropySocket.Possibilities.Count == 0) 
+        {
+            ClearInEditor(boundary);
+            return true;
+        }
+        lowestEntropySocket.Collapse();
+        if(lowestEntropySocket.IsCollapsed)
+        {
+            GameObject collapsedModuleSocket = Instantiate(lowestEntropySocket.CollapsedModule.Prefab, spawnSlots[lowestEntropySocket.Position.x, lowestEntropySocket.Position.y, lowestEntropySocket.Position.z].transform, false);
+            collapsedModuleSocket.transform.localPosition = Vector3.zero;
+            collapsedModuleSocket.transform.rotation = Quaternion.Euler(0, 90 * lowestEntropySocket.CollapsedModule.Rotation, 0);
+            PropagateSocketCollapse(lowestEntropySocket);
+        }
+        collapsedModulesCount++;
         return true;
     }
 
     public void CreateCollapsedMap(string name)
     {
-        CollapsedMap result = ScriptableObject.CreateInstance<CollapsedMap>();
         Module[] moduleData = new Module[size.x * size.y * size.z];
         for(int i = 0; i < size.z; i++)
         {
@@ -170,10 +211,27 @@ public class FiniteMap: MonoBehaviour
         }
         }
         }
-        result.CreateCollapsedMap(size, moduleData, name, modulesData, moduleSize);
+        CollapsedMapSO.CreateCollapsedMap(size, moduleData, name, modulesData, moduleSize);
     }
 
-    public void GenerateCollapsedMapWithBoundary(CollapsedMap boundary)
+    public CollapsedMapData CreateCollapsedMapData()
+    {
+        Module[] mapModuleData = new Module[size.x * size.y * size.z];
+        for(int i = 0; i < size.z; i++)
+        {
+        for(int j = 0; j < size.y; j++)
+        {
+        for(int k = 0; k < size.x; k++)
+        {
+            mapModuleData[i * size.y  * size.x + j*size.x + k] = mapData[k,j,i].CollapsedModule;
+        }
+        }
+        }
+        return new CollapsedMapData(size, moduleSize, modulesData, mapModuleData);
+    }
+
+
+    public CollapsedMapData GenerateCollapsedMapWithBoundary(CollapsedMapSO boundary)
     {
         size = boundary.Size;
         moduleSize = boundary.ModuleSize;
@@ -182,7 +240,16 @@ public class FiniteMap: MonoBehaviour
         IsWrapping = true;
         IsDebugging = false;
         InitNewMap();
-
+        int socketCount = size.x * size.y * size.z;
+        bool hasCollapsed = true;
+        PropagateCollapsedBoundary(boundary);
+        while(hasCollapsed)
+        {
+            EditorUtility.DisplayProgressBar("Generating new collapsed map", "Generating new collapsed map based on initial map", collapsedModulesCount/(float)socketCount);
+            hasCollapsed = CollapseLowestEntropyModuleSocketAndPropagateChangeWithBoundary(boundary);
+        }
+        EditorUtility.ClearProgressBar();
+        return CreateCollapsedMapData();
     }
 
     public void Clear()
@@ -192,5 +259,16 @@ public class FiniteMap: MonoBehaviour
             Destroy(child.gameObject);
         }
         InitNewMap();
+    }
+
+    public void ClearInEditor(CollapsedMapSO boundary)
+    {
+        List<Transform> tempChildrenList = transform.Cast<Transform>().ToList();
+        foreach(Transform child in tempChildrenList)
+        {
+            DestroyImmediate(child.gameObject);
+        }
+        InitNewMap();
+        PropagateCollapsedBoundary(boundary);
     }
 }

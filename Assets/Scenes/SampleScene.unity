@@ -456,7 +456,7 @@ MonoBehaviour:
   size: {x: 8, y: 5, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
   modulesData: {fileID: 11400000, guid: 532dd28f4d84a844bae6ea7044eb1cb1, type: 2}
-  IsWrapping: 1
+  IsWrapping: 0
   IsDebugging: 0
   mapBases: []
 --- !u!4 &630921861
@@ -553,8 +553,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  collapsedMap: {fileID: 11400000, guid: 8fdc31a22c5092e4799a5dfe126644b4, type: 2}
-  collaspedMapName: nowaMapa
+  collapsedMap: {fileID: 11400000, guid: 25c7d0e5e95b3b94abc80deeeab6e92a, type: 2}
+  collaspedMapName: 
 --- !u!4 &982161629
 Transform:
   m_ObjectHideFlags: 0

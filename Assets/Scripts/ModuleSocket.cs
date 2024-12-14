@@ -29,18 +29,19 @@ public class ModuleSocket
 	}
 	
 	/// <summary>
+	/// direction points from this socket to neighbour
 	/// Removes possibilities that not align with given neighbour.
 	/// Retruns true if number of possibilities have dropped.
 	/// </summary>
-    public bool Spread(ModuleSocket neighbour, WFCTools.DirectionIndex connectorIndexToNeighbour)
+    public bool Spread(ModuleSocket neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
 	{
 		HashSet<Module> newPossibilities = new HashSet<Module>();
 		if(neighbour.IsCollapsed)
 		{
-			ReduceExcludedPossibilities(neighbour, connectorIndexToNeighbour);
+			ReduceExcludedPossibilities(neighbour, directionToNeighbourFromThis);
 			for(int i = 0; i < possibilities.Count(); i++)
 			{
-				if(possibilities[i].IsFitting(neighbour.CollapsedModule, (int)connectorIndexToNeighbour))
+				if(possibilities[i].IsFitting(neighbour.CollapsedModule, (int)directionToNeighbourFromThis))
 				{
 					newPossibilities.Add(possibilities[i]);
 				}
@@ -52,13 +53,34 @@ public class ModuleSocket
 			{
 				for(int i = 0; i < possibilities.Count(); i++)
 				{
-					if(possibilities[i].IsFitting(np, (int)connectorIndexToNeighbour))
+					if(possibilities[i].IsFitting(np, (int)directionToNeighbourFromThis))
 					{
 						newPossibilities.Add(possibilities[i]);
 					}
 				}
 			}
 		}
+		bool hasChanged = possibilities.Count() != newPossibilities.Count();
+		possibilities = newPossibilities.ToList();
+		return hasChanged;
+	}
+
+	/// <summary>
+	/// direction points from this socket to neighbour
+	/// Removes possibilities that not align with given neighbour.
+	/// Retruns true if number of possibilities have dropped.
+	/// </summary>
+	public bool Spread(Module neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
+	{
+		HashSet<Module> newPossibilities = new HashSet<Module>();
+		for(int i = 0; i < possibilities.Count(); i++)
+		{
+			if(possibilities[i].IsFitting(neighbour, (int)directionToNeighbourFromThis))
+			{
+				newPossibilities.Add(possibilities[i]);
+			}
+		}
+		
 		bool hasChanged = possibilities.Count() != newPossibilities.Count();
 		possibilities = newPossibilities.ToList();
 		return hasChanged;

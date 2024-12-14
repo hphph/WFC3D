@@ -11,7 +11,11 @@ public class CollapsedMapDatabaseEditor: Editor
 
         if(GUILayout.Button("Generate new collapsed map"))
         {
-            collapsedMapDatabase.CreateNewBasedOnInitial();
+            collapsedMapDatabase.CreateNewMapBasedOnInitial();
+        }
+        if(GUILayout.Button("Show maps"))
+        {
+            collapsedMapDatabase.ShowCollapsedBasedMaps();
         }
         
     }

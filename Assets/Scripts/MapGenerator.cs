@@ -5,7 +5,7 @@ public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
     FiniteMap map;
-    [SerializeField] CollapsedMap collapsedMap;
+    [SerializeField] CollapsedMapSO collapsedMap;
     [SerializeField] string collaspedMapName;
 
     public void GenerateMap()

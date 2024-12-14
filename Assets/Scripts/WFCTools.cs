@@ -10,17 +10,17 @@ public class WFCTools
 
     /// <summary>
     /// </summary>
-    /// <returns>Dictionary of direction, vector pairs for every neighbour to a slot. Direction points at parent slot.</returns>
-    public static (DirectionIndex, Vector3Int, ModuleSocket)[] NeighboursToSocket(ModuleSocket socket)
+    /// <returns>Dictionary of direction, vector pairs for every neighbour to a socket. Direction points at parent socket.</returns>
+    public static (DirectionIndex, Vector3Int, ModuleSocket)[] NeighboursToSocket(ModuleSocket parentSocket)
     {
         (DirectionIndex, Vector3Int, ModuleSocket)[] neighbours = new (DirectionIndex, Vector3Int, ModuleSocket)[]
         {
-            ( DirectionIndex.Left, new Vector3Int(socket.Position.x + 1, socket.Position.y, socket.Position.z), socket ),
-            ( DirectionIndex.Forward, new Vector3Int(socket.Position.x, socket.Position.y, socket.Position.z - 1), socket ),
-            ( DirectionIndex.Up, new Vector3Int(socket.Position.x, socket.Position.y - 1, socket.Position.z), socket ),
-            ( DirectionIndex.Right, new Vector3Int(socket.Position.x - 1, socket.Position.y, socket.Position.z), socket ),
-            ( DirectionIndex.Back, new Vector3Int(socket.Position.x, socket.Position.y, socket.Position.z + 1), socket ),
-            ( DirectionIndex.Down, new Vector3Int(socket.Position.x, socket.Position.y + 1, socket.Position.z), socket ),
+            ( DirectionIndex.Left, new Vector3Int(parentSocket.Position.x + 1, parentSocket.Position.y, parentSocket.Position.z), parentSocket ),
+            ( DirectionIndex.Forward, new Vector3Int(parentSocket.Position.x, parentSocket.Position.y, parentSocket.Position.z - 1), parentSocket ),
+            ( DirectionIndex.Up, new Vector3Int(parentSocket.Position.x, parentSocket.Position.y - 1, parentSocket.Position.z), parentSocket ),
+            ( DirectionIndex.Right, new Vector3Int(parentSocket.Position.x - 1, parentSocket.Position.y, parentSocket.Position.z), parentSocket ),
+            ( DirectionIndex.Back, new Vector3Int(parentSocket.Position.x, parentSocket.Position.y, parentSocket.Position.z + 1), parentSocket ),
+            ( DirectionIndex.Down, new Vector3Int(parentSocket.Position.x, parentSocket.Position.y + 1, parentSocket.Position.z), parentSocket ),
         };
         
         return neighbours;
