@@ -27,6 +27,13 @@ public class ModuleSocket
 		this.position = position;
 		this.possibilities = new List<Module>(possibilites);
 	}
+
+	public ModuleSocket(Vector3Int position, IEnumerable<Module> possibilites, Module collapsedModule)
+	{
+		this.position = position;
+		this.possibilities = new List<Module>(possibilites);
+		this.collapsedModule = collapsedModule;
+	}
 	
 	/// <summary>
 	/// direction points from this socket to neighbour
