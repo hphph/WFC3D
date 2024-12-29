@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 9}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generatedChunks: {fileID: 11400000, guid: fc8cf6b0908e5874cb164e477f6beb8a, type: 2}
-  nearRenderDistance: 3
+  nearRenderDistance: 2
   farRenderDistance: 5
   playerObject: {fileID: 1756863853}
 --- !u!4 &345264475
@@ -503,8 +503,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 8, y: 5, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
-  modulesData: {fileID: 11400000, guid: 532dd28f4d84a844bae6ea7044eb1cb1, type: 2}
-  IsWrapping: 0
+  modulesData: {fileID: 11400000, guid: 1fd632c63acd89b4d85dff7815bae664, type: 2}
+  IsWrapping: 1
   IsDebugging: 0
   mapBases: []
 --- !u!4 &630921861
@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  collapsedMap: {fileID: 11400000, guid: 25c7d0e5e95b3b94abc80deeeab6e92a, type: 2}
+  collapsedMap: {fileID: 0}
   collaspedMapName: 
 --- !u!4 &982161629
 Transform:
@@ -643,7 +643,7 @@ Transform:
   m_GameObject: {fileID: 1756863853}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -30,9 +30,9 @@ public class DebugSlot : MonoBehaviour
     void UpdatePossibilities()
     {
         Possibilities.Clear();
-        foreach(Module m in observedSlot.Possibilities)
+        foreach(int p in observedSlot.Possibilities)
         {
-            Possibilities.Add(new DebugModule(m));
+            Possibilities.Add(new DebugModule(observedSlot.ModuleData.Modules[p]));
         }
     }
 }

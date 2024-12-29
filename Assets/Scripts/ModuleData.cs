@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
@@ -41,5 +42,6 @@ public class ModuleData: ScriptableObject
             modulesCount += 4;
         }
         Modules = currentModules.ToArray();
+        Array.ForEach(Modules, m => m.FillNeighbourPosibilities(Modules));
     }
 }

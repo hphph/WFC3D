@@ -1,16 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
 public class Module
 {
+    [System.Serializable]
+    public class NeigbourIndexArray
+    {
+        public int[] neighbourIndexes;
+    }
+    
     [SerializeField] DummyModule dummy;
     [SerializeField] GameObject prefab;
     [SerializeField] int rotation;
     [SerializeField] int modulesFromDummy;
     [SerializeField] string[] tags;
     [SerializeField] int index;
+    public NeigbourIndexArray[] neighbourPosibilities;
 
     public DummyModule Dummy => dummy;
+    public HashSet<int>[] NeighbourPosibilities => neighbourPosibilities.Select(p => p.neighbourIndexes.ToHashSet()).ToArray();
     public GameObject Prefab => prefab;
     public int Rotation => rotation;
     public float Probability => dummy.Probability/modulesFromDummy;
@@ -19,6 +30,7 @@ public class Module
     
     public Module(GameObject dummyPrefab, int rotation, int modulesFromDummy, int index)
     {
+        neighbourPosibilities = new NeigbourIndexArray[6];
         dummy = dummyPrefab.GetComponent<DummyModule>();
         if(dummy == null) Debug.LogError("Missing DummyModule component in prefab");
         prefab = dummyPrefab;
@@ -74,6 +86,15 @@ public class Module
             }
         }
         return false;
+    }
+
+    public void FillNeighbourPosibilities(Module[] modules)
+    {
+        for(int i = 0; i<6; i++)
+        {
+            neighbourPosibilities[i] = new NeigbourIndexArray();
+            neighbourPosibilities[i].neighbourIndexes = modules.Where(m => this.IsFitting(m, i)).Select(m => m.Index).ToArray();
+        }
     }
 
     static public int[] HorizontalIndexes()

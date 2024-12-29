@@ -73,11 +73,11 @@ public class FiniteMap: MonoBehaviour
                         }
                     }
                 }
-                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), initModules);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), modulesData.Modules.Select(m => m.Index), modulesData);
             }
             else
             {
-                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), modulesData.Modules);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), modulesData.Modules.Select(m => m.Index), modulesData);
             }
             spawnSlots[k,j,i] = new GameObject("Slot " + "( " + k + ", " + j + ", " + i + ")");
             spawnSlots[k,j,i].transform.SetParent(transform);
@@ -139,6 +139,7 @@ public class FiniteMap: MonoBehaviour
         ModuleSocket lowestEntropySocket = entropySortedModuleSocketQueue.ExtractMin();
         if(lowestEntropySocket.Possibilities.Count == 0) 
         {
+            Debug.Log("No possibilities to collapse");
             Clear();
             return true;
         }
