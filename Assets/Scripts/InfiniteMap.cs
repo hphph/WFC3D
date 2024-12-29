@@ -66,6 +66,7 @@ public class InfiniteMap : MonoBehaviour
                     if(mapState == null) InitiateChunk(pos);
                 }
                 else InitiateChunk(pos);
+                await Task.Yield();
             }
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Module Data", menuName = "WFC/ModuleData", order = 1)]
@@ -43,5 +44,6 @@ public class ModuleData: ScriptableObject
         }
         Modules = currentModules.ToArray();
         Array.ForEach(Modules, m => m.FillNeighbourPosibilities(Modules));
+        EditorUtility.SetDirty(this);
     }
 }

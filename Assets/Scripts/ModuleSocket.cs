@@ -90,7 +90,7 @@ public class ModuleSocket
 		int initialPossibilitiesCount = possibilities.Count;
 		if(neighbour.IsCollapsed)
 		{
-			ReduceExcludedPossibilities(neighbour, directionToNeighbourFromThis);
+			// ReduceExcludedPossibilities(neighbour, directionToNeighbourFromThis);
 			possibilities.IntersectWith(neighbour.CollapsedModule.NeighbourPosibilities[(int)directionToNeighbourFromThis]);
 		}
 		else

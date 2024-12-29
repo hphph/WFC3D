@@ -93,7 +93,7 @@ public class Module
         for(int i = 0; i<6; i++)
         {
             neighbourPosibilities[i] = new NeigbourIndexArray();
-            neighbourPosibilities[i].neighbourIndexes = modules.Where(m => this.IsFitting(m, i)).Select(m => m.Index).ToArray();
+            neighbourPosibilities[i].neighbourIndexes = modules.Where(m => m.IsFitting(this, i) && !this.IsModuleExcluded(m, (WFCTools.DirectionIndex)i)).Select(m => m.Index).ToArray();
         }
     }
 
