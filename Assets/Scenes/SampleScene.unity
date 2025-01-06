@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatedChunks: {fileID: 11400000, guid: fc8cf6b0908e5874cb164e477f6beb8a, type: 2}
   nearRenderDistance: 2
-  farRenderDistance: 3
+  farRenderDistance: 4
   playerObject: {fileID: 1756863853}
 --- !u!4 &345264475
 Transform:
