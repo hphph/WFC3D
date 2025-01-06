@@ -290,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatedChunks: {fileID: 11400000, guid: fc8cf6b0908e5874cb164e477f6beb8a, type: 2}
   nearRenderDistance: 2
-  farRenderDistance: 5
+  farRenderDistance: 3
   playerObject: {fileID: 1756863853}
 --- !u!4 &345264475
 Transform:
@@ -504,7 +504,7 @@ MonoBehaviour:
   size: {x: 8, y: 5, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
   modulesData: {fileID: 11400000, guid: 1fd632c63acd89b4d85dff7815bae664, type: 2}
-  IsWrapping: 1
+  IsWrapping: 0
   IsDebugging: 0
   mapBases: []
 --- !u!4 &630921861

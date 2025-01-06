@@ -88,11 +88,11 @@ public class InfiniteMap : MonoBehaviour
     async Task ResetAndRecollapseChunk(Vector2Int chunkPosition)
     {
 
-        ResetChunk(chunkPosition);
+        await ResetChunk(chunkPosition);
         await RecollapseChunk(chunkPosition);
     }
 
-    private void ResetChunk(Vector2Int chunkPosition)
+    private async Task ResetChunk(Vector2Int chunkPosition)
     {
         Vector2Int globalPosition = ChunkToGlobalPosition(chunkPosition);
         chunkCompletionStatus.Remove(chunkPosition, out bool haveCompleted);
@@ -117,6 +117,7 @@ public class InfiniteMap : MonoBehaviour
                     }
                 }
             }
+            await Task.Yield();
         }
     }
 
@@ -182,7 +183,6 @@ public class InfiniteMap : MonoBehaviour
             PriorityQueueSet<ModuleSocket> collapseQueue = new PriorityQueueSet<ModuleSocket>();
             Vector2Int globalPosition = ChunkToGlobalPosition(chunkPosition);
             PropagateBound(collapseQueue, globalPosition);
-
             while (collapseQueue.Count > 0)
             {
                 ModuleSocket nextToCollapse = collapseQueue.ExtractMin();
@@ -203,7 +203,8 @@ public class InfiniteMap : MonoBehaviour
                     nextToCollapse.SetSocketGO(socketGO);
                     PropagateSocketCollapse(nextToCollapse, collapseQueue);
                 }
-                await Task.Yield();
+                
+                    
             }
             if(collapseQueue.Count == 0)
             {
@@ -212,7 +213,7 @@ public class InfiniteMap : MonoBehaviour
             }
             else
             {
-                ResetChunk(chunkPosition);
+                await ResetChunk(chunkPosition);
             }
         }
     }
@@ -228,7 +229,7 @@ public class InfiniteMap : MonoBehaviour
                     if (x == globalPosition.x - (chunkSize.x / 2) - 1 || z == globalPosition.y - (chunkSize.z / 2) - 1 || x == globalPosition.x + (chunkSize.x / 2) || z == globalPosition.y + (chunkSize.z / 2))
                     {
                         ModuleSocket propagationSocket = GetSocketAt(new Vector3Int(x, y, z));
-                        if (propagationSocket != null) PropagateSocketCollapse(propagationSocket, collapseQueue);
+                        if (propagationSocket != null)  PropagateSocketCollapse(propagationSocket, collapseQueue);
                         else Debug.Log("ERROR" + new Vector3Int(x, y, z));
                     }
                 }
