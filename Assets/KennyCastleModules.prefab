@@ -97,34 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 1
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -138,14 +110,41 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &541436990115088630
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,36 +241,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 0
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 0
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 20
-  tags: []
+  Tags: []
 --- !u!1 &948519001770065383
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,42 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 0
-  Right:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 1
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -417,14 +380,49 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &1015392452287235157
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,44 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 5
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -573,14 +533,51 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 5
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 0.5
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &1199452003611573389
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,42 +674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 0
-  Back:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 1
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -726,14 +687,49 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Back:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &1752910458517736538
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +758,7 @@ Transform:
   m_GameObject: {fileID: 1752910458517736538}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.5}
+  m_LocalPosition: {x: 0, y: 0, z: 9.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -830,34 +826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 1
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -871,14 +839,41 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &2371101120901848830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1021,36 +1016,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 0
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 6
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 0.5
-  tags: []
+  Tags: []
 --- !u!1 &3338394234838081692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,36 +1142,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 2
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 2
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
+  Tags:
   - grass
 --- !u!1 &4671245168785203568
 GameObject:
@@ -1274,36 +1269,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 0
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 6
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 0.5
-  tags: []
+  Tags: []
 --- !u!1 &5263510413883978417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,42 +1395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 5
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 0
-  Right:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 1
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -1449,14 +1408,49 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 5
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &5470863170488803920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,42 +1548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 0
-  Right:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8703800624041497045}
-    - {fileID: 7333654072710581260}
-    - {fileID: 6114906954077361299}
-    - {fileID: 3171230963372081101}
-    Symmetric: 0
-    Filpped: 1
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -1603,14 +1561,49 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8703800624041497045}
+    - {fileID: 7333654072710581260}
+    - {fileID: 6114906954077361299}
+    - {fileID: 3171230963372081101}
+    Symmetric: 0
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &5643816060342593331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,44 +1701,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 5
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules:
-    - {fileID: 8508151109899059029}
-    Symmetric: 0
-    Filpped: 0
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 8508151109899059029}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 8508151109899059029}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -1759,14 +1714,51 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules:
+    - {fileID: 8508151109899059029}
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 5
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 8508151109899059029}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 8508151109899059029}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 0.5
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &5815615719662437729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,34 +1855,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 0
-  Right:
-    ConnectionId: 2
-    ExcludedDummyModules:
-    - {fileID: 7052707594743348666}
-    - {fileID: 8501308169509347436}
-    - {fileID: 8703800624041497045}
-    - {fileID: 3171230963372081101}
-    - {fileID: 7333654072710581260}
-    - {fileID: 8501308169509347436}
-    - {fileID: 6114906954077361299}
-    - {fileID: 6158668218872378645}
-    - {fileID: 7504320338189127010}
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 4
-    ExcludedDummyModules: []
-    Symmetric: 0
-    Filpped: 1
   Left:
     ConnectionId: 2
     ExcludedDummyModules:
@@ -1904,14 +1868,41 @@ MonoBehaviour:
     - {fileID: 6158668218872378645}
     - {fileID: 7504320338189127010}
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
+  Up:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 2
+    ExcludedDummyModules:
+    - {fileID: 7052707594743348666}
+    - {fileID: 8501308169509347436}
+    - {fileID: 8703800624041497045}
+    - {fileID: 3171230963372081101}
+    - {fileID: 7333654072710581260}
+    - {fileID: 8501308169509347436}
+    - {fileID: 6114906954077361299}
+    - {fileID: 6158668218872378645}
+    - {fileID: 7504320338189127010}
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 4
+    ExcludedDummyModules: []
+    Symmetric: 0
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 10
-  tags:
-  - wall
+  Tags: []
 --- !u!1 &8602777759913638438
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,36 +1999,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 6
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 0
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 0
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 6
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 0
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 5
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 0.5
-  tags: []
+  Tags: []
 --- !u!1 &8870559619111655317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,36 +2125,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2c1cf165680eaa48879392291a68a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Up:
-    ConnectionId: 1
-    ExcludedDummyModules: []
-    rotation: 4
-  Forward:
-    ConnectionId: 1
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Right:
-    ConnectionId: 1
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
-  Back:
-    ConnectionId: 1
-    ExcludedDummyModules: []
-    Symmetric: 1
-    Filpped: 0
   Left:
     ConnectionId: 1
     ExcludedDummyModules: []
     Symmetric: 1
-    Filpped: 0
+    Flipped: 0
+  Forward:
+    ConnectionId: 1
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Up:
+    ConnectionId: 1
+    ExcludedDummyModules: []
+    Rotation: 0
+  Right:
+    ConnectionId: 1
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
+  Back:
+    ConnectionId: 1
+    ExcludedDummyModules: []
+    Symmetric: 1
+    Flipped: 0
   Down:
     ConnectionId: 1
     ExcludedDummyModules: []
-    rotation: 4
+    Rotation: 0
   Probability: 1
-  tags: []
+  Tags: []
 --- !u!1001 &3062428067023325568
 PrefabInstance:
   m_ObjectHideFlags: 0

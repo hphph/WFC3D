@@ -8,97 +8,63 @@ public class ModuleSocket
     HashSet<int> possibilities;
 	Vector3Int position;
 	GameObject socketGO;
-	ModuleData moduleData;
+	ModulesData modulesData;
 
     public bool IsCollapsed => collapsedModule != null;
     public Module CollapsedModule => collapsedModule;
 	public Vector3Int Position => position;
 	public HashSet<int> Possibilities => possibilities;
 	public GameObject SocketGO => socketGO;
-	public ModuleData ModuleData => moduleData;
+	public ModulesData ModuleData => modulesData;
 
 	public float Entropy() 
 	{
 		float result = 0;
 		foreach(int p in possibilities)
 		{
-			result += moduleData.Modules[p].Probability;
+			result += modulesData.Modules[p].Probability;
 		}
 		return result;
 	}
 
-    public ModuleSocket(Vector3Int position, IEnumerable<int> possibilites, ModuleData moduleData)
+    public ModuleSocket(Vector3Int position, IEnumerable<int> possibilites, ModulesData moduleData)
 	{
 		this.position = position;
 		this.possibilities = new HashSet<int>(possibilites);
-		this.moduleData = moduleData;
+		this.modulesData = moduleData;
 	}
 
-	public ModuleSocket(Vector3Int position, IEnumerable<int> possibilites, Module collapsedModule, GameObject socketGO, ModuleData moduleData)
+	public ModuleSocket(Vector3Int position, IEnumerable<int> possibilites, Module collapsedModule, GameObject socketGO, ModulesData moduleData)
 	{
 		this.position = position;
 		this.possibilities = new HashSet<int>(possibilites);
 		this.collapsedModule = collapsedModule;
 		this.socketGO = socketGO;
-		this.moduleData = moduleData;
+		this.modulesData = moduleData;
 	}
 
 	public void SetSocketGO(GameObject socketGO)
 	{
 		this.socketGO = socketGO;
 	}
-	
-	/// <summary>
-	/// direction points from this socket to neighbour
-	/// Removes possibilities that not align with given neighbour.
-	/// Retruns true if number of possibilities have dropped.
-	/// </summary>
-    // public bool Spread(ModuleSocket neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
-	// {
-	// 	HashSet<Module> newPossibilities = new HashSet<Module>();
-	// 	if(neighbour.IsCollapsed)
-	// 	{
-	// 		ReduceExcludedPossibilities(neighbour, directionToNeighbourFromThis);
-	// 		for(int i = 0; i < possibilities.Count(); i++)
-	// 		{
-	// 			if(possibilities[i].IsFitting(neighbour.CollapsedModule, (int)directionToNeighbourFromThis))
-	// 			{
-	// 				newPossibilities.Add(possibilities[i]);
-	// 			}
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		foreach(var np in neighbour.possibilities)
-	// 		{
-	// 			for(int i = 0; i < possibilities.Count(); i++)
-	// 			{
-	// 				if(possibilities[i].IsFitting(np, (int)directionToNeighbourFromThis))
-	// 				{
-	// 					newPossibilities.Add(possibilities[i]);
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	bool hasChanged = possibilities.Count() != newPossibilities.Count();
-	// 	possibilities = newPossibilities.ToList();
-	// 	return hasChanged;
-	// }
 
     public bool Spread(ModuleSocket neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
 	{
 		int initialPossibilitiesCount = possibilities.Count;
 		if(neighbour.IsCollapsed)
 		{
-			// ReduceExcludedPossibilities(neighbour, directionToNeighbourFromThis);
-			possibilities.IntersectWith(neighbour.CollapsedModule.NeighbourPosibilities[(int)directionToNeighbourFromThis]);
+			Module colMod = neighbour.CollapsedModule;
+			var mNP = colMod.NeighbourPosibilities[(int)directionToNeighbourFromThis];
+			possibilities.IntersectWith(mNP);
 		}
 		else
 		{
 			HashSet<int> newPossibilities = new HashSet<int>();
 			foreach(int np in neighbour.possibilities)
 			{
-				newPossibilities.UnionWith(possibilities.Intersect(moduleData.Modules[np].NeighbourPosibilities[(int)directionToNeighbourFromThis]));
+				Module npM = modulesData.Modules[np];
+				var npNP = npM.NeighbourPosibilities[(int)directionToNeighbourFromThis];
+				newPossibilities.UnionWith(possibilities.Intersect(npNP));
 			}
 			if(newPossibilities.Count != initialPossibilitiesCount) 
 			{
@@ -118,27 +84,6 @@ public class ModuleSocket
 		socketGO = null;
 	}
 
-	/// <summary>
-	/// direction points from this socket to neighbour
-	/// Removes possibilities that not align with given neighbour.
-	/// Retruns true if number of possibilities have dropped.
-	/// </summary>
-	// public bool Spread(Module neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
-	// {
-	// 	HashSet<Module> newPossibilities = new HashSet<Module>();
-	// 	for(int i = 0; i < possibilities.Count(); i++)
-	// 	{
-	// 		if(possibilities[i].IsFitting(neighbour, (int)directionToNeighbourFromThis))
-	// 		{
-	// 			newPossibilities.Add(possibilities[i]);
-	// 		}
-	// 	}
-		
-	// 	bool hasChanged = possibilities.Count() != newPossibilities.Count();
-	// 	possibilities = newPossibilities.ToList();
-	// 	return hasChanged;
-	// }
-
 	public bool Spread(Module neighbour, WFCTools.DirectionIndex directionToNeighbourFromThis)
 	{
 		int initialPossibilitiesCount = possibilities.Count;
@@ -151,20 +96,19 @@ public class ModuleSocket
 	{
 		if(!neighbour.IsCollapsed) return;
 		int removed;
-		removed = possibilities.RemoveWhere(possibility => neighbour.CollapsedModule.IsModuleExcluded(moduleData.Modules[possibility], connectorIndexToNeighbour));		
+		removed = possibilities.RemoveWhere(possibility => neighbour.CollapsedModule.IsModuleExcluded(modulesData.Modules[possibility], connectorIndexToNeighbour));		
 	}
 
 	public void Collapse()
 	{
-		if(possibilities.Count == 0) Debug.Log("No Possibilities to collapse");
 		float collapseNumber = Random.Range(0, Entropy());
 		float sum = 0;
 		foreach(int p in possibilities)
 		{
-			sum += moduleData.Modules[p].Probability;
+			sum += modulesData.Modules[p].Probability;
 			if(collapseNumber <= sum) 
 			{
-				collapsedModule = moduleData.Modules[p];
+				collapsedModule = modulesData.Modules[p];
 				break;
 			}
 		}

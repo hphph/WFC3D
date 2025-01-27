@@ -18,12 +18,12 @@ public class DummyModule : MonoBehaviour
         { 
             A, B, C, D, Invariant 
         }
-        public RotationState rotation;
+        public RotationState Rotation;
 
         public override string ToString()
         {
             string result = this.ConnectionId.ToString();
-            switch(rotation)
+            switch(Rotation)
             {
                 case RotationState.A:
                     result += "A";
@@ -49,23 +49,23 @@ public class DummyModule : MonoBehaviour
     public class HorizontalConnector: AbstractConnector
     {
         public bool Symmetric;
-        public bool Filpped;
+        public bool Flipped;
         public override string ToString()
         {
             string result = this.ConnectionId.ToString();
-            result += Symmetric ? "S" : Filpped ? "F" : "";
+            result += Symmetric ? "S" : Flipped ? "F" : "";
             return result;
         }
     }
 
-    public VerticalConnector Up;
+    public HorizontalConnector Left;
     public HorizontalConnector Forward;
+    public VerticalConnector Up;
     public HorizontalConnector Right;
     public HorizontalConnector Back;
-    public HorizontalConnector Left;
     public VerticalConnector Down;
     public float Probability;
-    public string[] tags;
+    public string[] Tags;
 
     public AbstractConnector[] ModuleConnectors 
     {

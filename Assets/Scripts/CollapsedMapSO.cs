@@ -5,10 +5,10 @@ public class CollapsedMapSO : ScriptableObject
 {
     public Vector3Int Size;
     public Vector3 ModuleSize;
-    public ModuleData ModuleData;
+    public ModulesData ModuleData;
     public Module[] MapData;
 
-    public static void CreateCollapsedMap(Vector3Int size, Module[] mapData, string name, ModuleData moduleData, Vector3 moduleSize)
+    public static void CreateCollapsedMap(Vector3Int size, Module[] mapData, string name, ModulesData moduleData, Vector3 moduleSize)
     {
         CollapsedMapSO newCollapsedMap = CreateInstance<CollapsedMapSO>();
         newCollapsedMap.Size = size;

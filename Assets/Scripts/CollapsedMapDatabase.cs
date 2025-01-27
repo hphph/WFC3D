@@ -15,7 +15,7 @@ public class CollapsedMapDatabase : ScriptableObject
         }
         CollapsedMapData[] updatedBasedMaps = new CollapsedMapData[basedMaps.Length + 1];
         basedMaps.CopyTo(updatedBasedMaps, 0);
-        //Generate new map based on initial =)
+        //Generate new map based on initial 
         GameObject finiteMapGO = new GameObject("TempFiniteMap", typeof(FiniteMap));
         FiniteMap tempFiniteMap = finiteMapGO.GetComponent<FiniteMap>();
         updatedBasedMaps[updatedBasedMaps.Length-1] = tempFiniteMap.GenerateCollapsedMapWithBoundary(initialMap);

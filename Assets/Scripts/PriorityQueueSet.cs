@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using C5;
-using Unity.VisualScripting;
 
 public class PriorityQueueSet<T>
 {
@@ -37,7 +36,7 @@ public class PriorityQueueSet<T>
         {
             var heapHandle = heapReferences[key];
             heap.Find(heapHandle, out ValueTuple<float, T> heapElement);
-            if(value != heapElement.Item1) 
+            if(value < heapElement.Item1) 
             {
                 IPriorityQueueHandle<ValueTuple<float, T>> handle = null; 
                 heap.Delete(heapHandle);

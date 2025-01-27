@@ -38,7 +38,7 @@ public class Module
         if(rotation > 3) Debug.LogError("Wrong rotation value");
         this.modulesFromDummy = modulesFromDummy;
         this.index = index;
-        tags = dummy.tags;
+        tags = dummy.Tags;
     }
 
     public bool IsFitting(Module neighbour, int connectorIndexToNeighbour)
@@ -48,16 +48,16 @@ public class Module
             var connector1 = neighbour.dummy.ModuleConnectors[RotateHorizontallyConnector(WFCTools.OppositeConnectorIndex(connectorIndexToNeighbour), neighbour.Rotation)] as DummyModule.HorizontalConnector;
             var connector2 = dummy.ModuleConnectors[RotateHorizontallyConnector(connectorIndexToNeighbour, rotation)] as DummyModule.HorizontalConnector;
             return (connector1.ConnectionId == connector2.ConnectionId) && 
-                    (connector1.Symmetric || connector2.Symmetric || (!connector1.Filpped == connector2.Filpped));
+                    (connector1.Symmetric || connector2.Symmetric || (!connector1.Flipped == connector2.Flipped));
         }
         else
         {
             var connector1 = neighbour.Dummy.OppositeConnector(connectorIndexToNeighbour) as DummyModule.VerticalConnector;
             var connector2 = dummy.ModuleConnectors[connectorIndexToNeighbour] as DummyModule.VerticalConnector;
             return (connector1.ConnectionId == connector2.ConnectionId) && 
-                    (connector1.rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
-                        connector2.rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
-                        (((int)connector1.rotation + neighbour.Rotation) % 4) == (((int)connector2.rotation + rotation) % 4));
+                    (connector1.Rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
+                        connector2.Rotation == DummyModule.VerticalConnector.RotationState.Invariant || 
+                        (((int)connector1.Rotation + neighbour.Rotation) % 4) == (((int)connector2.Rotation + rotation) % 4));
         }
     }
 

@@ -5,10 +5,10 @@ public class CollapsedMapData
 {
     public Vector3Int Size;
     public Vector3 ModuleSize;
-    public ModuleData ModuleData;
+    public ModulesData ModuleData;
     public Module[] MapData;
 
-    public CollapsedMapData(Vector3Int size, Vector3 moduleSize, ModuleData moduleData, Module[] mapData)
+    public CollapsedMapData(Vector3Int size, Vector3 moduleSize, ModulesData moduleData, Module[] mapData)
     {
         Size = size;
         ModuleSize = moduleSize;

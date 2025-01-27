@@ -6,9 +6,9 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Module Data", menuName = "WFC/ModuleData", order = 1)]
-public class ModuleData: ScriptableObject
+public class ModulesData: ScriptableObject
 {
-    public GameObject dummyModulesPrefab;
+    public GameObject DummyModulesPrefab;
     public Module[] Modules;
 
     public void GenerateModulesDataFromPrefab()
@@ -17,14 +17,14 @@ public class ModuleData: ScriptableObject
 
         List<Module> currentModules = new List<Module>();
         int modulesCount = 0;
-        foreach(Transform child in dummyModulesPrefab.transform)
+        foreach(Transform child in DummyModulesPrefab.transform)
         {
             DummyModule dm = child.GetComponent<DummyModule>();
 
             foreach(DummyModule.VerticalConnector vc in dm.VerticalConnectors)
             {
                 //return 1
-                if(vc.rotation != DummyModule.VerticalConnector.RotationState.Invariant)
+                if(vc.Rotation != DummyModule.VerticalConnector.RotationState.Invariant)
                 {
                     // return 4
                     break;

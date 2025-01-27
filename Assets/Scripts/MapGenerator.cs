@@ -16,9 +16,8 @@ public class MapGenerator : MonoBehaviour
         {
             hasCollapsed = map.CollapseLowestEntropyModuleSocketAndPropagateChange();
         }
-        Debug.Log("Map Generated");
     }
-    
+
     public void Clear()
     {
         map.Clear();

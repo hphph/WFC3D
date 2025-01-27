@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &345264474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,11 +501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdffbedab1e9f354494594b3e131a7a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 8, y: 5, z: 8}
+  size: {x: 8, y: 8, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
   modulesData: {fileID: 11400000, guid: 1fd632c63acd89b4d85dff7815bae664, type: 2}
-  IsWrapping: 0
-  IsDebugging: 0
+  isWrapping: 1
   mapBases: []
 --- !u!4 &630921861
 Transform:
