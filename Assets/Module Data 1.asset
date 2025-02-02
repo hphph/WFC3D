@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d75b369273c7a4ea1b489e4f0e7a2a, type: 3}
   m_Name: Module Data 1
   m_EditorClassIdentifier: 
-  dummyModulesPrefab: {fileID: 6812164213132806872, guid: 5a781ff9ba49c0948a4e99749fa6ca76,
+  DummyModulesPrefab: {fileID: 6812164213132806872, guid: 5a781ff9ba49c0948a4e99749fa6ca76,
     type: 3}
   Modules:
   - dummy: {fileID: 2932722310347248246, guid: 5a781ff9ba49c0948a4e99749fa6ca76, type: 3}

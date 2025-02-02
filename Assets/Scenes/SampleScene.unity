@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &345264474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
   size: {x: 8, y: 8, z: 8}
   moduleSize: {x: 2, y: 2, z: 2}
   modulesData: {fileID: 11400000, guid: 1fd632c63acd89b4d85dff7815bae664, type: 2}
-  isWrapping: 1
+  isWrapping: 0
   mapBases: []
 --- !u!4 &630921861
 Transform:
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 630921860}
-  collapsedMap: {fileID: 0}
+  collapsedMap: {fileID: 11400000, guid: 333b1141b7d312a43b0cac310df0eb7b, type: 2}
   collaspedMapName: 
 --- !u!4 &982161629
 Transform:

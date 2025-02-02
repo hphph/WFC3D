@@ -72,7 +72,7 @@ public class FiniteMap: MonoBehaviour
                         }
                     }
                 }
-                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), modulesData.Modules.Select(m => m.Index), modulesData);
+                mapData[k,j,i] = new ModuleSocket(new Vector3Int(k,j,i), initModules.Select(m => m.Index), modulesData);
             }
             else
             {

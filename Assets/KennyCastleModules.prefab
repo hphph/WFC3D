@@ -143,7 +143,7 @@ MonoBehaviour:
     ConnectionId: 1
     ExcludedDummyModules: []
     Rotation: 0
-  Probability: 10
+  Probability: 20
   Tags: []
 --- !u!1 &541436990115088630
 GameObject:
@@ -872,7 +872,7 @@ MonoBehaviour:
     ConnectionId: 1
     ExcludedDummyModules: []
     Rotation: 0
-  Probability: 10
+  Probability: 20
   Tags: []
 --- !u!1 &2371101120901848830
 GameObject:
@@ -1170,7 +1170,7 @@ MonoBehaviour:
     ConnectionId: 1
     ExcludedDummyModules: []
     Rotation: 0
-  Probability: 10
+  Probability: 1
   Tags:
   - grass
 --- !u!1 &4671245168785203568
@@ -1901,7 +1901,7 @@ MonoBehaviour:
     ConnectionId: 1
     ExcludedDummyModules: []
     Rotation: 0
-  Probability: 10
+  Probability: 20
   Tags: []
 --- !u!1 &8602777759913638438
 GameObject:
