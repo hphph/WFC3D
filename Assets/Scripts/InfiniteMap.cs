@@ -64,6 +64,7 @@ public class InfiniteMap : MonoBehaviour
             if(recollapseQueue.Count > 0) 
             {
                 Vector2Int chunkPos = recollapseQueue.Dequeue();
+                Debug.Log(chunkPos);
                 yield return ResetChunk(chunkPos);
                 yield return RecollapseChunk(chunkPos);
             }
@@ -223,7 +224,7 @@ public class InfiniteMap : MonoBehaviour
         {
             PriorityQueueSet<ModuleSocket> collapseQueue = new PriorityQueueSet<ModuleSocket>();
             Vector2Int globalPosition = ChunkToGlobalPosition(chunkPosition);
-            yield return PropagateBound(collapseQueue, globalPosition);
+            PropagateBound(collapseQueue, globalPosition);
             while (collapseQueue.Count > 0)
             {
                 ModuleSocket nextToCollapse = collapseQueue.ExtractMin();
@@ -263,7 +264,7 @@ public class InfiniteMap : MonoBehaviour
         }
     }
 
-    IEnumerator PropagateBound(PriorityQueueSet<ModuleSocket> collapseQueue, Vector2Int globalPosition)
+    void PropagateBound(PriorityQueueSet<ModuleSocket> collapseQueue, Vector2Int globalPosition)
     {
         for (int z = globalPosition.y - (chunkSize.z / 2) - 1; z < globalPosition.y + (chunkSize.z / 2) + 1; z++)
         {
@@ -276,7 +277,7 @@ public class InfiniteMap : MonoBehaviour
                     {
 
                         ModuleSocket propagationSocket = GetSocketAt(new Vector3Int(x, y, z));
-                        if (propagationSocket != null) yield return PropagateSocketCollapseCoroutine(propagationSocket, collapseQueue);
+                        if (propagationSocket != null)  PropagateSocketCollapse(propagationSocket, collapseQueue);
                         else Debug.Log("ERROR" + new Vector3Int(x, y, z));
                     }
                 }
