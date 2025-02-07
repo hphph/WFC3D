@@ -64,7 +64,6 @@ public class InfiniteMap : MonoBehaviour
             if(recollapseQueue.Count > 0) 
             {
                 Vector2Int chunkPos = recollapseQueue.Dequeue();
-                Debug.Log(chunkPos);
                 yield return ResetChunk(chunkPos);
                 yield return RecollapseChunk(chunkPos);
             }
