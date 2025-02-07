@@ -21,7 +21,7 @@ public class Module
     public NeigbourIndexArray[] neighbourPosibilities;
 
     public DummyModule Dummy => dummy;
-    public HashSet<int>[] NeighbourPosibilities => neighbourPosibilities.Select(p => p.neighbourIndexes.ToHashSet()).ToArray();
+    public HashSet<int>[] NeighbourPosibilities;
     public GameObject Prefab => prefab;
     public int Rotation => rotation;
     public float Probability => dummy.Probability/modulesFromDummy;
@@ -105,5 +105,10 @@ public class Module
     static public int RotateHorizontallyConnector(int connectorIndex, int rotation)
     {
         return HorizontalIndexes()[WFCTools.Mod(System.Array.IndexOf<int>(HorizontalIndexes(), connectorIndex) - rotation, 4)];
+    }
+
+    public void FillHashSet()
+    {
+        NeighbourPosibilities = neighbourPosibilities.Select(p => p.neighbourIndexes.ToHashSet()).ToArray();
     }
 }

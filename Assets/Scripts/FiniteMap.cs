@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -26,6 +27,7 @@ public class FiniteMap: MonoBehaviour
 
     void PreInit()
     {
+        Array.ForEach(modulesData.Modules, m => m.FillHashSet());
         tagModuleCache = new Dictionary<string, IEnumerable<Module>>();
         foreach(MapBase mapBase in mapBases)
         {

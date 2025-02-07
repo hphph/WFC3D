@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,6 +21,7 @@ public class InfiniteMap : MonoBehaviour
 
     void Start()
     {
+        System.Array.ForEach(generatedChunks.initialMap.ModuleData.Modules, m => m.FillHashSet());
         mapData = new Dictionary<Vector3Int, ModuleSocket>();
         chunkMap = new Dictionary<Vector2Int, GameObject>();
         chunkCompletionStatus = new  Dictionary<Vector2Int, bool>();
@@ -149,6 +148,7 @@ public class InfiniteMap : MonoBehaviour
         {
             Vector3Int moduleSocketGlobalPosition = new Vector3Int(chunkPosition.x * chunkSize.x, 0, chunkPosition.y * chunkSize.z) + new Vector3Int(k,j,i);
             Module module = collapsedMap.GetModuleAt(new Vector3Int(k, j, i));
+            module.FillHashSet();
             GameObject socketGO = Instantiate(module.Dummy.gameObject, chunkGo.transform, false);
             ModuleSocket moduleSocket = new ModuleSocket(moduleSocketGlobalPosition, generatedChunks.initialMap.ModuleData.Modules.Select(m => m.Index), module, socketGO, generatedChunks.initialMap.ModuleData);
             mapData.Add(moduleSocketGlobalPosition, moduleSocket);
